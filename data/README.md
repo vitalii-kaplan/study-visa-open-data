@@ -4,7 +4,7 @@ This data artifact contains a reproducible cross-national collection of public s
 
 Each record represents an aggregate published measure, not an individual applicant or visa case. Measures with different meanings must not be treated as interchangeable. Consult `country-schema.json` and `RETRIEVAL.md` before making comparisons across sources or destinations.
 
-The large data files are distributed separately from the GitHub code repository as a data artifact; its DOI will be added when available. They can also be recreated from the documented sources using the scripts in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) project. All paths mentioned here are relative to that project’s `data/` directory.
+The large data files are distributed separately from the GitHub code repository as a data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). They can also be recreated from the documented sources using the scripts in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) project. All paths mentioned here are relative to that project’s `data/` directory.
 
 ## Top-level contents
 

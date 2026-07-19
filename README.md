@@ -34,7 +34,7 @@ Coverage is not equally complete across countries. Canada combines several expli
 - `data/original/` — the preserved source files as downloaded.
 - [`data/country-schema.json`](data/country-schema.json) — the source catalogue, field descriptions, coverage notes, and comparability warnings.
 
-The large data files and directories listed above are not committed to the GitHub code repository. They will be available from the separate data artifact (DOI forthcoming). Alternatively, retrieve the preserved sources by following [`data/RETRIEVAL.md`](data/RETRIEVAL.md), then recreate the extracted CSV files, common long table, and SQLite database with `python3 scripts/rebuild_database.py`.
+The large data files and directories listed above are not committed to the GitHub code repository. They are available from the separate data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). Alternatively, retrieve the preserved sources by following [`data/RETRIEVAL.md`](data/RETRIEVAL.md), then recreate the extracted CSV files, common long table, and SQLite database with `python3 scripts/rebuild_database.py`.
 
 The accompanying [paper](article/article.pdf) explains how the collection was assembled, how country names were reconciled, where fields are structurally absent, and which comparisons are defensible.
 

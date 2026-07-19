@@ -10,7 +10,7 @@ Do not shift the project toward university rankings, admission criteria, program
 
 ## Current repository state
 
-- `data/` is the intended standalone data artifact. Large artifact content is distributed separately from the GitHub code repository (DOI forthcoming) and is ignored by Git.
+- `data/` is the intended standalone data artifact. Large artifact content is distributed separately from the GitHub code repository under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641) and is ignored by Git.
 - `data/country-schema.json` is the machine-readable source inventory and data dictionary. Keep it valid JSON.
 - `data/RETRIEVAL.md` records source retrieval and provenance.
 - `data/original/<country-slug>/` contains preserved downloads when the separate data artifact is unpacked or retrieval has been run.
