@@ -1,0 +1,281 @@
+{
+  "document_type": "student_visa_data_collection_script_chain",
+  "schema_version": "1.0.0",
+  "updated": "2026-07-19",
+  "purpose": "Machine-readable documentation of the script sequence that rebuilds the project's derived CSV files and final strict student-visa SQLite database from preserved raw sources.",
+  "working_directory": "project repository root",
+  "runtime_requirements": [
+    "Python 3",
+    "Python standard library only for the documented build scripts",
+    "Preserved raw sources under data/original/",
+    "Official UN M49 source at data/UNSD — Methodology.csv"
+  ],
+  "primary_command": {
+    "command": "python3 scripts/rebuild_database.py",
+    "description": "Runs the complete local raw-source extraction, transformation, strict database load, and validation chain.",
+    "initial_parameters": {
+      "skip_extraction": false,
+      "skip_validation": false
+    },
+    "optional_parameters": [
+      {
+        "flag": "--skip-extraction",
+        "default": false,
+        "effect": "Reuses existing source-level CSV files and skips extract_csv.py and extract_us.py."
+      },
+      {
+        "flag": "--skip-validation",
+        "default": false,
+        "effect": "Skips validate_database.py after the database load."
+      }
+    ],
+    "execution_behavior": "Stops immediately if any child script exits unsuccessfully."
+  },
+  "script_chain": [
+    {
+      "step": 1,
+      "script": "scripts/extract_csv.py",
+      "command": "python3 scripts/extract_csv.py",
+      "description": "Extracts source-level CSV files from the preserved New Zealand HTML, Australian XLSX pivot caches, United Kingdom XLSX sheets, and Canada HTML, CSV, and XLSX sources.",
+      "condition": "Skipped when rebuild_database.py receives --skip-extraction.",
+      "initial_parameters": {},
+      "inputs": [
+        "data/original/new-zealand/*",
+        "data/original/australia/*",
+        "data/original/united-kingdom/*",
+        "data/original/canada/*"
+      ],
+      "outputs": [
+        "data/csv/new-zealand/*.csv",
+        "data/csv/australia/*.csv",
+        "data/csv/united-kingdom/*.csv",
+        "data/csv/canada/*.csv"
+      ],
+      "result": {
+        "new_zealand_rows_by_year": {
+          "2022": 149,
+          "2023": 158,
+          "2024": 152,
+          "2025": 156
+        },
+        "australia_pivot_cache_rows": {
+          "applications_lodged": 2079645,
+          "visas_granted": 2274440,
+          "grant_rate_decisions": 2046442
+        },
+        "united_kingdom_rows": {
+          "entry_clearance_applications": 249920,
+          "entry_clearance_outcomes": 402372,
+          "sponsored_study_applications": 18717,
+          "sponsored_study_grants": 18658
+        },
+        "australia_source_snapshot": "2026-04-30",
+        "australia_local_filename_caveat": "The preserved raw and extracted filenames contain 2026-02-28, but the official metadata and pivot-cache period identify the downloaded resources as 2026-04-30."
+      }
+    },
+    {
+      "step": 2,
+      "script": "scripts/extract_us.py",
+      "command": "python3 scripts/extract_us.py",
+      "description": "Extracts United States F1 and M1 primary-student issuance counts. F2 and M2 dependent classes are excluded.",
+      "condition": "Skipped when rebuild_database.py receives --skip-extraction.",
+      "initial_parameters": {},
+      "inputs": [
+        "data/original/united-states/FYs97-24_NIVDetailTable.xlsx",
+        "data/UNSD — Methodology.csv",
+        "data/country_aliases.csv"
+      ],
+      "outputs": [
+        "data/csv/united-states/us_niv_student_issuances_by_nationality_fy1997_2024.csv"
+      ],
+      "result": {
+        "united_states_measure_rows": 11128
+      }
+    },
+    {
+      "step": 3,
+      "script": "scripts/combine_canada.py",
+      "command": "python3 scripts/combine_canada.py",
+      "description": "Combines Canada source-level CSV files into analysis-ready country-of-residence outcomes, intake and issuance measures, and citizenship-based permit volumes.",
+      "initial_parameters": {},
+      "inputs": [
+        "data/csv/canada/*.csv"
+      ],
+      "outputs": [
+        "tmp/processed/canada/study_permit_outcomes_by_country_residence.csv",
+        "tmp/processed/canada/study_permit_intake_issued_by_country_residence.csv",
+        "tmp/processed/canada/study_permit_volumes_by_citizenship.csv"
+      ],
+      "result": {
+        "outcome_rows": 1044,
+        "intake_issued_rows": 264,
+        "permit_volume_rows": 62469
+      }
+    },
+    {
+      "step": 4,
+      "script": "scripts/extract_canada_recent.py",
+      "command": "python3 scripts/extract_canada_recent.py",
+      "description": "Extracts the OLLO Q-2700 French-speaking or bilingual study-permit subset and writes its SQLite-only common-schema file without modifying SQLite during the full rebuild.",
+      "initial_parameters": {
+        "insert_sqlite": false
+      },
+      "optional_parameters": [
+        {
+          "flag": "--insert-sqlite",
+          "effect": "Replaces Q-2700 rows in an existing database. Not used because load_sqlite.py includes the subset automatically."
+        }
+      ],
+      "inputs": [
+        "data/original/canada/ollo-order-paper-q2700-2024-11-04.html",
+        "data/UNSD — Methodology.csv",
+        "data/country_aliases.csv"
+      ],
+      "outputs": [
+        "data/csv/canada/study_permit_french_bilingual_outcomes_by_country_residence_2023_2024apr_snapshot_2024-11-04.csv",
+        "tmp/processed/canada/study_permit_french_bilingual_common_long_sqlite_only.csv"
+      ],
+      "result": {
+        "source_rows": 346,
+        "sqlite_only_measure_rows": 1384,
+        "included_in_common_csv": false,
+        "included_in_final_sqlite": true
+      }
+    },
+    {
+      "step": 5,
+      "script": "scripts/build_common_table.py",
+      "command": "python3 scripts/build_common_table.py",
+      "description": "Transforms supported source-level and processed inputs into the common long schema using the shared country normalizer, excluding explicitly identifiable dependant and mixed applicant cohorts.",
+      "initial_parameters": {},
+      "inputs": [
+        "data/csv/<country>/*.csv",
+        "tmp/processed/canada/study_permit_outcomes_by_country_residence.csv",
+        "tmp/processed/canada/study_permit_intake_issued_by_country_residence.csv",
+        "tmp/processed/canada/study_permit_volumes_by_citizenship.csv",
+        "data/UNSD — Methodology.csv",
+        "data/country_aliases.csv"
+      ],
+      "outputs": [
+        "data/student_visa_common_long.csv"
+      ],
+      "result": {
+        "total_measure_rows": 9707903,
+        "measure_rows_by_destination": {
+          "New Zealand": 2777,
+          "Australia": 9319202,
+          "United Kingdom": 321406,
+          "Canada": 53390,
+          "United States": 11128
+        },
+        "includes_canada_sqlite_only_subset": false
+      }
+    },
+    {
+      "step": 6,
+      "script": "scripts/load_sqlite.py",
+      "command": "python3 scripts/load_sqlite.py",
+      "description": "Builds the strict student-only SQLite artifact atomically, filters incompatible common-table categories, includes the Canada Q-2700 SQLite-only subset, creates indexes, and runs ANALYZE.",
+      "initial_parameters": {
+        "batch_size": 50000,
+        "temporary_database": "data/student_visa.sqlite.building",
+        "final_database": "data/student_visa.sqlite"
+      },
+      "inputs": [
+        "data/student_visa_common_long.csv",
+        "tmp/processed/canada/study_permit_french_bilingual_common_long_sqlite_only.csv"
+      ],
+      "outputs": [
+        "data/student_visa.sqlite"
+      ],
+      "strict_filter": {
+        "Australia": "visa_category = student visa and applicant_type = Primary",
+        "Canada": "visa_category = study permit",
+        "New Zealand": "visa_category = student visa",
+        "United Kingdom": "visa_category = Study and applicant_type is Main Applicant or main_applicant_only",
+        "United States": "F1 and M1 rows with applicant_type = primary; F2 and M2 are excluded"
+      },
+      "result": {
+        "total_rows": 9510731,
+        "rows_by_destination": {
+          "Australia": 9319202,
+          "Canada": 54729,
+          "New Zealand": 2777,
+          "United Kingdom": 122895,
+          "United States": 11128
+        },
+        "indexes_created": [
+          "idx_student_visa_destination",
+          "idx_student_visa_origin",
+          "idx_student_visa_origin_type",
+          "idx_student_visa_period",
+          "idx_student_visa_measure",
+          "idx_student_visa_category",
+          "idx_student_visa_dest_origin_measure",
+          "idx_student_visa_un_m49_country",
+          "idx_student_visa_normalization_status"
+        ],
+        "atomic_replacement": true
+      }
+    },
+    {
+      "step": 7,
+      "script": "scripts/validate_database.py",
+      "command": "python3 scripts/validate_database.py",
+      "description": "Validates reference integrity, aliases, Australian source integrity, common/SQLite normalization consistency, measure constraints, and database provenance, then writes the unmatched-label audit.",
+      "condition": "Skipped when rebuild_database.py receives --skip-validation.",
+      "initial_parameters": {},
+      "inputs": [
+        "data/UNSD — Methodology.csv",
+        "data/country_aliases.csv",
+        "data/csv/australia/*.csv",
+        "data/student_visa_common_long.csv",
+        "data/student_visa.sqlite"
+      ],
+      "outputs": [
+        "log/unmatched_origin_labels.csv"
+      ],
+      "checks": [
+        "The official UN M49 source has the required schema, 248 unique country/area names, and valid three-digit M49 codes.",
+        "Australian count measures are non-negative integers.",
+        "Australian grant totals plus refusal totals equal decision totals.",
+        "Australian Higher Education and Primary records are unique when all pivot-cache dimensions are retained.",
+        "Country normalization is consistent across the common CSV, SQLite-only subset, and SQLite database.",
+        "No exact official UNSD country or area name remains unmatched.",
+        "Aggregates, unknown labels, and unmatched labels have no canonical UN M49 country assigned.",
+        "Count measures are non-negative integers and percentage measures are within 0 through 100.",
+        "Every SQLite row has source-file metadata.",
+        "No explicit Secondary, Dependant, dependent, All-applicant aggregate, F2, or M2 row remains in generated common artifacts or SQLite."
+      ],
+      "result": {
+        "status": "passed",
+        "validated_sqlite_rows": 9510731,
+        "unmatched_label_source_groups": 59
+      }
+    }
+  ],
+  "final_artifacts": {
+    "primary": {
+      "path": "data/student_visa.sqlite",
+      "description": "Strict student and study visa query database, excluding explicitly identifiable dependant and mixed-applicant cohorts and including the explicitly identified Canada Q-2700 language subset.",
+      "row_count": 9510731,
+      "sqlite_integrity_check": "ok"
+    },
+    "common_csv": {
+      "path": "data/student_visa_common_long.csv",
+      "row_count": 9707903,
+      "scope_note": "Excludes explicitly identifiable dependant and mixed-applicant cohorts. Retains broader source categories that remain distinguishable through visa and coverage fields."
+    },
+    "normalization_audit": {
+      "path": "log/unmatched_origin_labels.csv",
+      "group_count": 59,
+      "review_note": "Remaining unmatched labels are absent from the supplied current UNSD list, chiefly Taiwan, Kosovo, historical countries or areas, and subnational areas."
+    }
+  },
+  "separate_maintenance_script": {
+    "script": "scripts/update_sqlite_un_m49.py",
+    "command": "python3 scripts/update_sqlite_un_m49.py",
+    "description": "Refreshes normalization fields in an existing database with the same shared normalizer. It is not part of a full rebuild because load_sqlite.py writes current normalization directly.",
+    "initial_parameters": {}
+  }
+}

@@ -1,0 +1,67 @@
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Editor and IDE state
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
+
+# Python caches, test output, and coverage reports
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Rebuildable processing intermediates and audit logs
+tmp/
+log/
+
+# Data release files are published as a separate artifact (DOI forthcoming).
+# They can also be recreated with the retrieval and rebuild scripts.
+data/original/
+data/csv/
+data/student_visa_common_long.csv
+data/student_visa.sqlite
+
+# SQLite temporary files
+*.sqlite.building
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+
+# LaTeX build by-products (keep source .tex and release .pdf files)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv

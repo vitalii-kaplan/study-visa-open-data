@@ -1,0 +1,1444 @@
+{
+  "schema_version": "0.2.0",
+  "created": "2026-06-03",
+  "updated": "2026-07-19",
+  "purpose": "Inventory of official student visa, study permit, and related educational migration data sources, with source-level schemas and comparability notes.",
+  "project_scope_note": "This file documents public data sources about visa or permit requests and decisions after study admission and before study start. It is not about university rankings or admissions.",
+  "generated_artifact_applicant_scope": {
+    "policy": "Exclude explicitly identifiable dependant applicants from generated common tables and SQLite.",
+    "Australia": "Keep Applicant Type = Primary; preserve Secondary only in source-level extracted CSV files.",
+    "United Kingdom": "Keep Applicant type = Main Applicant in entry-clearance data; sponsored-study course-level data are already main-applicant-only. Exclude All and Dependant entry-clearance rows from generated common artifacts.",
+    "United States": "Keep F1 and M1 primary student classes; exclude F2 and M2 dependent classes.",
+    "other_sources": "When a source does not expose a separable applicant-type dimension, retain the published rows and document that primary-only coverage cannot be guaranteed."
+  },
+  "reference_data": {
+    "un_m49": {
+      "publisher": "United Nations Statistics Division",
+      "title": "Standard country or area codes for statistical use (M49)",
+      "source_url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "access_date": "2026-07-19",
+      "release_date": "Not stated; UNSD maintains this as a live standard",
+      "downloaded_as": "data/UNSD — Methodology.csv",
+      "source_file_retained": true,
+      "raw_format": "UTF-8 with BOM; semicolon-delimited CSV",
+      "raw_record_count": 248,
+      "preparation_note": "The official semicolon-delimited CSV is used directly as the canonical country and area reference.",
+      "alias_file": "data/country_aliases.csv",
+      "normalizer": "scripts/country_normalization.py",
+      "normalization_note": "Canonical countries/areas, reviewed aliases, aggregates, unknown labels, and unmatched labels are represented separately. Territories with their own UNSD record are not assigned to an administering sovereign country."
+    }
+  },
+  "countries": [
+    {
+      "country": "New Zealand",
+      "country_slug": "new-zealand",
+      "publisher": "Immigration New Zealand",
+      "destination_country": "New Zealand",
+      "overall_description": "Annual HTML tables of offshore or overseas student visa application decisions by country, territory, or special administrative region. These are currently the cleanest official source for origin-country-level student visa applications, approvals, declines, and rates.",
+      "download_directory": "data/original/new-zealand",
+      "source_records": [
+        {
+          "id": "nz-offshore-student-visa-decisions-2022",
+          "year": 2022,
+          "title": "Offshore student visa application decisions for 2022",
+          "url": "https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/offshore-student-visa-application-decisions-for-2022/",
+          "local_file": "data/original/new-zealand/offshore-student-visa-application-decisions-2022.html",
+          "format": "HTML table",
+          "coverage": {
+            "period_type": "calendar_year",
+            "period": "2022",
+            "applicant_location": "Outside New Zealand when applied",
+            "included_visa_types": [
+              "Fee Paying Student Visa",
+              "Pathway Student Visa",
+              "English Language Studies Student Visa",
+              "MFAT-funded NZ Scholarship Student Visa",
+              "Exchange Student Visa"
+            ]
+          },
+          "columns": [
+            {
+              "name": "Country/Territory/Special administrative region",
+              "description": "Country, territory, or special administrative region of the applicant.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Number approved",
+              "description": "Number of completed applications approved during the calendar year.",
+              "role": "measure"
+            },
+            {
+              "name": "Number declined",
+              "description": "Number of completed applications declined during the calendar year.",
+              "role": "measure"
+            },
+            {
+              "name": "Decline rate",
+              "description": "Reported decline percentage.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The 2022 page does not expose the same columns as later years: there is no explicit application volume or approval-rate column in the visible table.",
+            "Application volume may be derivable as approved plus declined only if withdrawals or other outcomes are not present; do not assume this without checking source definitions."
+          ]
+        },
+        {
+          "id": "nz-offshore-student-visa-decisions-2023",
+          "year": 2023,
+          "title": "Offshore student visa application decisions for 2023",
+          "url": "https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/offshore-student-visa-application-decisions-for-2023/",
+          "local_file": "data/original/new-zealand/offshore-student-visa-application-decisions-2023.html",
+          "format": "HTML table",
+          "coverage": {
+            "period_type": "calendar_year",
+            "period": "2023",
+            "applicant_location": "Outside New Zealand when applied",
+            "included_visa_types": [
+              "Fee Paying Student Visa",
+              "Pathway Student Visa",
+              "English Language Studies Student Visa",
+              "MFAT-funded NZ Scholarship Student Visa",
+              "Exchange Student Visa"
+            ],
+            "excluded_rows": "Countries where no applications were completed in 2023 are excluded."
+          },
+          "columns": [
+            {
+              "name": "Country/Territory/Special administrative region",
+              "description": "Country, territory, or special administrative region of the applicant.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Volume of visa applications",
+              "description": "Number of visa applications decided and completed during the calendar year.",
+              "role": "measure"
+            },
+            {
+              "name": "Number approved",
+              "description": "Number of applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Number declined",
+              "description": "Number of applications declined.",
+              "role": "measure"
+            },
+            {
+              "name": "Decline rate",
+              "description": "Reported decline percentage.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The table is already close to the project target schema: origin, destination, year, applications, approvals, refusals, approval rate.",
+            "Rates may not reconcile perfectly with counts because of rounding and possible non-approval/non-decline outcomes."
+          ]
+        },
+        {
+          "id": "nz-overseas-student-visa-decisions-2024",
+          "year": 2024,
+          "title": "Overseas student visa application decisions for 2024",
+          "url": "https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/overseas-student-visa-application-decisions-for-2024/",
+          "local_file": "data/original/new-zealand/overseas-student-visa-application-decisions-2024.html",
+          "format": "HTML table",
+          "coverage": {
+            "period_type": "calendar_year",
+            "period": "2024",
+            "applicant_location": "Outside New Zealand when applied",
+            "included_visa_types": [
+              "Fee Paying Student Visa",
+              "Pathway Student Visa",
+              "English Language Studies Student Visa",
+              "MFAT-funded NZ Scholarship Student Visa",
+              "Exchange Student Visa"
+            ],
+            "excluded_rows": "Countries where no applications were completed in 2024 are excluded."
+          },
+          "columns": [
+            {
+              "name": "Country/Territory/Special administrative region",
+              "description": "Country, territory, or special administrative region of the applicant.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Volume of visa applications",
+              "description": "Number of visa applications decided and completed during the calendar year.",
+              "role": "measure"
+            },
+            {
+              "name": "Number approved",
+              "description": "Number of applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Number declined",
+              "description": "Number of applications declined.",
+              "role": "measure"
+            },
+            {
+              "name": "Decline rate",
+              "description": "Reported decline percentage.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The source states that approval and decline percentages may not add up to 100 percent because withdrawals are not included.",
+            "Keep withdrawals as an implicit missing outcome unless a later source exposes them directly."
+          ]
+        },
+        {
+          "id": "nz-overseas-student-visa-decisions-2025",
+          "year": 2025,
+          "title": "Overseas student visa application decisions for 2025",
+          "url": "https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/overseas-student-visa-application-decisions-for-2025/",
+          "local_file": "data/original/new-zealand/overseas-student-visa-application-decisions-2025.html",
+          "format": "HTML table",
+          "coverage": {
+            "period_type": "calendar_year",
+            "period": "2025",
+            "as_of": "2026-02-16",
+            "applicant_location": "Outside New Zealand when applied",
+            "included_visa_types": [
+              "Fee Paying Student Visa",
+              "Pathway Student Visa",
+              "English Language Studies Student Visa",
+              "MFAT-funded NZ Scholarship Student Visa",
+              "Foreign Government Supported Student Visa",
+              "Exchange Student Visa"
+            ],
+            "excluded_rows": "Countries where no applications were completed in 2025 are excluded."
+          },
+          "columns": [
+            {
+              "name": "Country/Territory/Special administrative region",
+              "description": "Country, territory, or special administrative region of the applicant.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Volume of visa applications",
+              "description": "Number of visa applications decided and completed during the calendar year as of the source snapshot date.",
+              "role": "measure"
+            },
+            {
+              "name": "Number approved",
+              "description": "Number of applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Number declined",
+              "description": "Number of applications declined.",
+              "role": "measure"
+            },
+            {
+              "name": "Decline rate",
+              "description": "Reported decline percentage.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The 2025 source labels the table as calendar year 2025 as of 16 February 2026.",
+            "The included visa-type list is slightly broader than the 2022-2024 descriptions because it includes Foreign Government Supported Student Visa explicitly."
+          ]
+        }
+      ],
+      "comparability_notes": [
+        "Use New Zealand as a reference-quality source for country-level applications, approvals, declines, and rates.",
+        "The 2022 schema differs from 2023-2025 and should remain a separate source record.",
+        "The data is offshore or overseas only and should not be mixed with onshore student visa decisions without a separate dimension."
+      ]
+    },
+    {
+      "country": "Australia",
+      "country_slug": "australia",
+      "publisher": "Australian Government Department of Home Affairs",
+      "destination_country": "Australia",
+      "overall_description": "The Student visa program dataset on data.gov.au publishes monthly XLSX pivot workbooks and a small CSV resource index for student visa lodgements, grants, and grant rates. It covers subclass 500 and subclasses 570 to 576 in current and previous financial years.",
+      "download_directory": "data/original/australia",
+      "dataset_url": "https://data.gov.au/data/en/dataset/student-visas",
+      "metadata_api_url": "https://data.gov.au/data/en/api/3/action/package_show?id=324aa4f7-46bb-4d56-bc2d-772333a2317e",
+      "local_metadata_file": "data/original/australia/student-visas-package-show.json",
+      "license": "Creative Commons Attribution 2.5 Australia",
+      "release_frequency": "Monthly",
+      "reference_period": "2005-07-01 to 2026-04-30 in the downloaded pivot caches and official package metadata",
+      "source_records": [
+        {
+          "id": "au-student-visas-lodged-2026-04-30",
+          "title": "BP0015 Student visas lodged report at 2026-04-30",
+          "url": "https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e/resource/ef31b2b4-a894-484b-99bc-e35d62ace777/download/bp0015l-student-visas-lodged-report-locked-at-2026-04-30-v100.xlsx",
+          "local_file": "data/original/australia/bp0015l-student-visas-lodged-report-locked-at-2026-02-28-v100.xlsx",
+          "local_filename_note": "The preserved local filename says 2026-02-28, but the downloaded bytes are the 2026-04-30 resource: the pivot cache runs through 30 April 2026 and the saved CKAN package metadata identifies the resource as 2026-04-30.",
+          "format": "XLSX pivot workbook",
+          "main_sheet": "Lodged (Month)",
+          "measure": "student_visa_applications_lodged",
+          "pivot_cache_fields": [
+            "Financial Year of Visa Lodged",
+            "Financial Year Quarter",
+            "Month",
+            "Client Location",
+            "Lodgement Channel",
+            "Sector",
+            "Applicant Type",
+            "Education Provider Registered State",
+            "Gender",
+            "Citizenship Country",
+            "Age Group",
+            "Total"
+          ],
+          "columns": [
+            {
+              "name": "Financial Year of Visa Lodged",
+              "description": "Financial year in which the visa application was lodged.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Financial Year Quarter",
+              "description": "Financial year quarter used in the BP visa statistics reports.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Month",
+              "description": "Month as recorded in the statistics.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Client Location",
+              "description": "Location of the client at the time of lodging an application unless specified otherwise. Usually onshore/offshore, but may be country-level for applications processed in some systems.",
+              "role": "dimension"
+            },
+            {
+              "name": "Lodgement Channel",
+              "description": "Channel used when lodging the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Sector",
+              "description": "Education sector for the student visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Applicant Type",
+              "description": "Applicant type such as primary applicant or dependant, depending on workbook values.",
+              "role": "dimension"
+            },
+            {
+              "name": "Education Provider Registered State",
+              "description": "Registered state of the education provider shown on the confirmation of enrolment.",
+              "role": "dimension"
+            },
+            {
+              "name": "Gender",
+              "description": "Gender recorded in the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Citizenship Country",
+              "description": "Country of citizenship of the visa applicant or visa holder. If more than one citizenship exists, the travel-document citizenship or nominated citizenship is used.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Age Group",
+              "description": "Age grouping for the applicant cohort.",
+              "role": "dimension"
+            },
+            {
+              "name": "Total",
+              "description": "Number of student visa applications lodged.",
+              "role": "measure"
+            }
+          ]
+        },
+        {
+          "id": "au-student-visas-granted-2026-04-30",
+          "title": "BP0015 Student visas granted report at 2026-04-30",
+          "url": "https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e/resource/dfc7a893-0523-4b8e-bc5a-829e35bec90f/download/bp0015l-student-visas-granted-report-locked-at-2026-04-30-v100.xlsx",
+          "local_file": "data/original/australia/bp0015l-student-visas-granted-report-locked-at-2026-02-28-v100.xlsx",
+          "local_filename_note": "The preserved local filename says 2026-02-28, but the downloaded bytes are the 2026-04-30 resource according to the pivot-cache period and saved CKAN package metadata.",
+          "format": "XLSX pivot workbook",
+          "main_sheet": "Granted (Month)",
+          "measure": "student_visas_granted",
+          "pivot_cache_fields": [
+            "Financial Year of Visa Grant",
+            "Financial Year Quarter",
+            "Month",
+            "Client Location",
+            "Lodgement Channel",
+            "Sector",
+            "Applicant Type",
+            "Education Provider Registered State",
+            "Gender",
+            "Citizenship Country",
+            "Age Group",
+            "Last Visa Held - Visa Category",
+            "Total"
+          ],
+          "columns": [
+            {
+              "name": "Financial Year of Visa Grant",
+              "description": "Financial year in which the student visa was granted.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Financial Year Quarter",
+              "description": "Financial year quarter used in the BP visa statistics reports.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Month",
+              "description": "Month as recorded in the statistics.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Client Location",
+              "description": "Location of the client at the time of lodging an application unless specified otherwise.",
+              "role": "dimension"
+            },
+            {
+              "name": "Lodgement Channel",
+              "description": "Channel used when lodging the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Sector",
+              "description": "Education sector for the student visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Applicant Type",
+              "description": "Applicant type such as primary applicant or dependant, depending on workbook values.",
+              "role": "dimension"
+            },
+            {
+              "name": "Education Provider Registered State",
+              "description": "Registered state of the education provider shown on the confirmation of enrolment.",
+              "role": "dimension"
+            },
+            {
+              "name": "Gender",
+              "description": "Gender recorded in the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Citizenship Country",
+              "description": "Country of citizenship of the visa applicant or visa holder.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Age Group",
+              "description": "Age grouping for the applicant cohort.",
+              "role": "dimension"
+            },
+            {
+              "name": "Last Visa Held - Visa Category",
+              "description": "Previous substantive visa category, excluding bridging visas.",
+              "role": "dimension"
+            },
+            {
+              "name": "Total",
+              "description": "Number of student visas granted.",
+              "role": "measure"
+            }
+          ]
+        },
+        {
+          "id": "au-student-visa-grant-rates-2026-04-30",
+          "title": "BP0015 Student visa grant rates at 2026-04-30",
+          "url": "https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e/resource/b4775919-d0f5-4beb-8901-6384342774c6/download/bp0015l-student-visa-grant-rates-locked-at-2026-04-30-v100.xlsx",
+          "local_file": "data/original/australia/bp0015l-student-visa-grant-rates-locked-at-2026-02-28-v100.xlsx",
+          "local_filename_note": "The preserved local filename says 2026-02-28, but the downloaded bytes are the 2026-04-30 resource according to the pivot-cache period and saved CKAN package metadata.",
+          "format": "XLSX pivot workbook",
+          "main_sheet": "Grant Rate (Month)",
+          "measure": "student_visa_grant_rate",
+          "pivot_cache_fields": [
+            "Financial Year of Decision",
+            "Financial Year Quarter",
+            "Month",
+            "Client Location",
+            "Lodgement Channel",
+            "Sector",
+            "Applicant Type",
+            "Education Provider Registered State",
+            "Gender",
+            "Citizenship Country",
+            "Age Group",
+            "Grant Total",
+            "Refused Total",
+            "Total",
+            "Grant Rate"
+          ],
+          "columns": [
+            {
+              "name": "Financial Year of Decision",
+              "description": "Financial year in which the decision was recorded.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Financial Year Quarter",
+              "description": "Financial year quarter used in the BP visa statistics reports.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Month",
+              "description": "Month as recorded in the statistics.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Client Location",
+              "description": "Location of the client at the time of lodging an application unless specified otherwise.",
+              "role": "dimension"
+            },
+            {
+              "name": "Lodgement Channel",
+              "description": "Channel used when lodging the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Sector",
+              "description": "Education sector for the student visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Applicant Type",
+              "description": "Applicant type such as primary applicant or dependant, depending on workbook values.",
+              "role": "dimension"
+            },
+            {
+              "name": "Education Provider Registered State",
+              "description": "Registered state of the education provider shown on the confirmation of enrolment.",
+              "role": "dimension"
+            },
+            {
+              "name": "Gender",
+              "description": "Gender recorded in the visa application.",
+              "role": "dimension"
+            },
+            {
+              "name": "Citizenship Country",
+              "description": "Country of citizenship of the visa applicant or visa holder.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Age Group",
+              "description": "Age grouping for the applicant cohort.",
+              "role": "dimension"
+            },
+            {
+              "name": "Grant Total",
+              "description": "Number of grants used in the grant-rate calculation.",
+              "role": "measure"
+            },
+            {
+              "name": "Refused Total",
+              "description": "Number of refusals used in the grant-rate calculation.",
+              "role": "measure"
+            },
+            {
+              "name": "Total",
+              "description": "Decision total used in the grant-rate calculation.",
+              "role": "measure"
+            },
+            {
+              "name": "Grant Rate",
+              "description": "Number of visas granted divided by the sum of visas granted and refused decisions.",
+              "role": "measure"
+            }
+          ]
+        }
+      ],
+      "data_source_systems": [
+        "Integrated Client Services Environment (ICSE)",
+        "Immigration Records Information System (IRIS)",
+        "Migration Program Management System (MPMS)",
+        "Travel and Immigration Processing System (TRIPS)"
+      ],
+      "comparability_notes": [
+        "The Australian source distinguishes lodgement, grant, and decision-based grant rate workbooks. These should not be treated as one table without explicit joining keys.",
+        "Grant rate is decision-based: grants divided by grants plus refusals, not grants divided by lodged applications.",
+        "The downloaded workbooks are pivot-style XLSX files. Extraction should use pivot cache fields or a spreadsheet engine rather than only visible pivot cells.",
+        "The common schema retains Lodgement Channel for all three workbooks and Last Visa Held for the grants workbook. Omitting those dimensions caused repeated visible keys with different values; the source records are unique when all pivot-cache dimensions are retained.",
+        "For every grant-rate pivot record, Grant Total plus Refused Total equals Total. The validation script checks this reconciliation invariant.",
+        "Source-level extraction preserves Primary and Secondary applicant types, but generated common tables and SQLite retain Primary applicants only."
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "country_slug": "united-kingdom",
+      "publisher": "UK Home Office",
+      "destination_country": "United Kingdom",
+      "overall_description": "GOV.UK Immigration system statistics publish detailed Excel datasets for entry clearance visa applications and outcomes, plus a course-level education visa workbook derived from matching entry clearance visa records to Confirmation of Acceptance for Studies records.",
+      "download_directory": "data/original/united-kingdom",
+      "dataset_url": "https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables",
+      "local_landing_page_file": "data/original/united-kingdom/immigration-system-statistics-data-tables.html",
+      "source_records": [
+        {
+          "id": "uk-entry-clearance-visa-outcomes-mar-2026",
+          "title": "Entry clearance visa applications and outcomes detailed datasets, year ending March 2026",
+          "url": "https://assets.publishing.service.gov.uk/media/6a1d5a9f916cd732dcdaad5c/entry-clearance-visa-outcomes-datasets-mar-2026.xlsx",
+          "local_file": "data/original/united-kingdom/entry-clearance-visa-outcomes-datasets-mar-2026.xlsx",
+          "format": "XLSX workbook with pivot sheets and dataset sheets",
+          "published": "2026-05-21",
+          "next_update": "2026-08-27",
+          "period_covered": "2005 onwards to 2026 Q1",
+          "relevant_sheets": [
+            {
+              "sheet": "Data_Vis_D01",
+              "title": "Applications for entry clearance visas - dataset",
+              "columns": [
+                {
+                  "name": "Year",
+                  "description": "Year in which a visa application was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Quarter",
+                  "description": "Quarter in which a visa application was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Nationality",
+                  "description": "Nationality of the visa applicant.",
+                  "role": "origin_dimension"
+                },
+                {
+                  "name": "Region",
+                  "description": "World region of the country of nationality.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type group",
+                  "description": "Visa type grouped into categories including work, study, family, visitor, other, and dependants joining or accompanying.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type",
+                  "description": "Type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type subgroup",
+                  "description": "Detailed type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Applicant type",
+                  "description": "Whether the applicant was the main applicant or dependant.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Applications",
+                  "description": "Number of entry clearance visa applications.",
+                  "role": "measure"
+                }
+              ]
+            },
+            {
+              "sheet": "Data_Vis_D02",
+              "title": "Outcomes of applications for entry clearance visas - dataset",
+              "columns": [
+                {
+                  "name": "Year",
+                  "description": "Year in which a visa decision was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Quarter",
+                  "description": "Quarter in which a visa decision was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Nationality",
+                  "description": "Nationality of the visa applicant.",
+                  "role": "origin_dimension"
+                },
+                {
+                  "name": "Region",
+                  "description": "World region of the country of nationality.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type group",
+                  "description": "Visa type grouped into categories including work, study, family, visitor, other, and dependants joining or accompanying.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type",
+                  "description": "Type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type subgroup",
+                  "description": "Detailed type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Applicant type",
+                  "description": "Whether the applicant was the main applicant or dependant.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Case outcome",
+                  "description": "Outcome category, including issued and refused in the sampled rows.",
+                  "role": "outcome_dimension"
+                },
+                {
+                  "name": "Decisions",
+                  "description": "Number of decisions for the outcome category.",
+                  "role": "measure"
+                }
+              ]
+            }
+          ],
+          "useful_notes": [
+            "Filter to Visa type group = Study for student visa work.",
+            "An outcome in a given quarter may relate to an application raised in a previous quarter.",
+            "Data from Q1 2025 onwards are provisional."
+          ]
+        },
+        {
+          "id": "uk-sponsored-study-course-level-mar-2026",
+          "title": "Sponsored study entry clearance visas by course level, year ending March 2026",
+          "url": "https://assets.publishing.service.gov.uk/media/6a05e19c5f39105e0848a2c3/education-visas-datasets-mar-2026.xlsx",
+          "local_file": "data/original/united-kingdom/education-visas-datasets-mar-2026.xlsx",
+          "format": "XLSX workbook with pivot sheets and dataset sheets",
+          "published": "2026-05-21",
+          "next_update": "2026-11-26",
+          "period_covered": "2018 Q1 to 2026 Q1",
+          "relevant_sheets": [
+            {
+              "sheet": "Data_Edu_D01",
+              "title": "Applications of entry clearance visas by course level - dataset",
+              "columns": [
+                {
+                  "name": "Year",
+                  "description": "Year in which an application was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Quarter",
+                  "description": "Quarter in which an application was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Nationality",
+                  "description": "Nationality of the visa applicant.",
+                  "role": "origin_dimension"
+                },
+                {
+                  "name": "Region",
+                  "description": "World region of the country of nationality.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type subgroup",
+                  "description": "Detailed type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Course level",
+                  "description": "Academic level of the main course chosen by the visa applicant.",
+                  "role": "education_dimension"
+                },
+                {
+                  "name": "Applications",
+                  "description": "Number of visa applications made.",
+                  "role": "measure"
+                }
+              ]
+            },
+            {
+              "sheet": "Data_Edu_D02",
+              "title": "Grants of entry clearance visas by course level - dataset",
+              "columns": [
+                {
+                  "name": "Year",
+                  "description": "Year in which a grant was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Quarter",
+                  "description": "Quarter in which a grant was made.",
+                  "role": "time_dimension"
+                },
+                {
+                  "name": "Nationality",
+                  "description": "Nationality of the visa applicant.",
+                  "role": "origin_dimension"
+                },
+                {
+                  "name": "Region",
+                  "description": "World region of the country of nationality.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Visa type subgroup",
+                  "description": "Detailed type of visa applied for.",
+                  "role": "dimension"
+                },
+                {
+                  "name": "Course level",
+                  "description": "Academic level of the main course chosen by the visa applicant.",
+                  "role": "education_dimension"
+                },
+                {
+                  "name": "Grants",
+                  "description": "Number of visa applications granted.",
+                  "role": "measure"
+                }
+              ]
+            }
+          ],
+          "useful_notes": [
+            "This workbook relates to main applicants applying outside the UK.",
+            "It is derived by matching entry clearance visa records and Confirmation of Acceptance for Studies records.",
+            "A small proportion of applications and grants not matched to a CAS are excluded.",
+            "Data from Q1 2025 onwards are provisional."
+          ]
+        }
+      ],
+      "comparability_notes": [
+        "The entry-clearance workbook can support study visa applications and outcomes by nationality, but it is broader than student visas and requires filtering.",
+        "The course-level workbook is useful for education-level analysis but excludes unmatched CAS records and is main-applicant-only.",
+        "Applications and decisions occur in different periods, so a same-quarter approval rate needs careful definition.",
+        "Source-level entry-clearance extraction preserves All, Main Applicant, and Dependant rows; generated common tables and SQLite retain Main Applicant only."
+      ]
+    },
+    {
+      "country": "Canada",
+      "country_slug": "canada",
+      "publisher": "Immigration, Refugees and Citizenship Canada",
+      "destination_country": "Canada",
+      "overall_description": "Canada publishes substantial study permit holder and student arrival data through IRCC/Open Canada, and also publishes some application approval/refusal outcome tables through official parliamentary and committee transparency pages. The approval-rate sources are usually by country of residence, while the permit-holder volume sources are usually by country of citizenship.",
+      "download_directory": "data/original/canada",
+      "source_records": [
+        {
+          "id": "ca-cimm-study-permit-approval-rates-country-residence-2019-2022jan",
+          "title": "CIMM - Student Approval Rates by Country of Residence - March 24, 2022",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-mar-24-2022/student-approval-rates.html",
+          "local_file": "data/original/canada/cimm-student-approval-rates-country-residence-2019-2022-jan.html",
+          "derived_csv": "data/csv/canada/study_permit_approval_rates_by_country_residence_2019_2022jan.csv",
+          "format": "HTML tables",
+          "period_covered": "2019, 2020, 2021, and January 2022",
+          "description": "Number of study permit applications excluding extensions processed by IRCC, broken down by final decision year and country of residence. This is the strongest currently retrieved Canada source for all-country study permit approval-rate modelling.",
+          "columns": [
+            {
+              "name": "Country of Residence",
+              "description": "Applicant country of residence, not citizenship.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Approved",
+              "description": "Number of processed study permit applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Refused",
+              "description": "Number of processed study permit applications refused.",
+              "role": "measure"
+            },
+            {
+              "name": "Total",
+              "description": "Total processed applications in the period.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The page title says country of residence and the table is explicitly for study permit applications excluding extensions.",
+            "The extracted CSV adds year, period label, period type, and a blank withdrawn column so it can align with later Canada outcome tables.",
+            "Use this source for strict Canada approval-rate analysis only with origin_country_type = country_of_residence."
+          ]
+        },
+        {
+          "id": "ca-cimm-study-permit-approval-rates-country-residence-2019-2022mar-summary",
+          "title": "CIMM - Student Approval Rates by Country of Residence - May 12, 2022",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-may-12-2022/student-approval-rates-country-residence.html",
+          "local_file": "data/original/canada/cimm-student-approval-rates-country-residence-2019-2022-mar.html",
+          "format": "HTML summary tables",
+          "period_covered": "2019, 2020, 2021, and January-March 2022",
+          "description": "Official CIMM page describing study permit approval rates by country of residence through March 2022. The downloaded page contains summary/truncated tables rather than all countries, so it is retained as provenance but is not currently extracted as a full country-level CSV.",
+          "columns": [
+            {
+              "name": "Country of Residence",
+              "description": "Applicant country of residence.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Approved",
+              "description": "Number of processed study permit applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Refused",
+              "description": "Number of processed study permit applications refused.",
+              "role": "measure"
+            },
+            {
+              "name": "Total",
+              "description": "Total processed applications in the period.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval Rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The page states data source COGNOS (MBR), extracted as of April 20, 2022.",
+            "Because the HTML contains ellipses/truncated country rows, use the March 24, 2022 page for full extraction through January 2022."
+          ]
+        },
+        {
+          "id": "ca-cimm-international-students-intake-output-issued-2024-02-28",
+          "title": "CIMM - International Students Data Dashboard: Intake, Output and Issued - February 28, 2024",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-feb-28-2024/intake-output-issued.html",
+          "local_file": "data/original/canada/cimm-international-students-intake-output-issued-2024-02-28.html",
+          "derived_csv_files": [
+            "data/csv/canada/study_permit_applications_received_top10_country_residence_2022_2024jan_snapshot_2024-02-28.csv",
+            "data/csv/canada/study_permit_applications_issued_top10_country_residence_2022_2024jan_snapshot_2024-02-28.csv",
+            "data/csv/canada/study_permit_outcomes_top10_country_residence_2022_2024jan_snapshot_2024-02-28.csv"
+          ],
+          "format": "HTML tables",
+          "period_covered": "2022, 2023, and 2024 through January 31",
+          "description": "Top 10 country-of-residence tables for study permit applications received, applications issued, and applications approved/refused/withdrawn. This is useful for recent Canada outcomes but is not an all-country table.",
+          "columns": [
+            {
+              "name": "Country of Residence",
+              "description": "Applicant country of residence.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Approved",
+              "description": "Number of study permit applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Refused",
+              "description": "Number of study permit applications refused.",
+              "role": "measure"
+            },
+            {
+              "name": "Withdrawn",
+              "description": "Number of study permit applications withdrawn.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval Rate",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Total",
+              "description": "Total applications in the table period.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "Top 10 countries are sorted by grand total and include an Other Countries row plus Grand Total.",
+            "Rows should not be treated as complete country coverage."
+          ]
+        },
+        {
+          "id": "ca-cimm-sp-intake-output-issued-2023-06-14",
+          "title": "CIMM - SP Intake, Output and Issued - June 14, 2023",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-june-14-2023/intake.html",
+          "local_file": "data/original/canada/cimm-sp-intake-output-issued-2023-06-14.html",
+          "derived_csv_files": [
+            "data/csv/canada/study_permit_applications_received_top10_country_residence_2022_2023apr_snapshot_2023-06-14.csv",
+            "data/csv/canada/study_permit_applications_issued_top10_country_residence_2022_2023apr_snapshot_2023-06-14.csv",
+            "data/csv/canada/study_permit_outcomes_top10_country_residence_2022_2023apr_snapshot_2023-06-14.csv"
+          ],
+          "format": "HTML tables",
+          "period_covered": "2022 and 2023 through April 30",
+          "description": "Earlier CIMM top 10 country-of-residence snapshot for study permit applications received, applications issued, and applications approved/refused/withdrawn.",
+          "columns": [
+            {
+              "name": "Country of Residence",
+              "description": "Applicant country of residence.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Refused",
+              "description": "Number of study permit applications refused.",
+              "role": "measure"
+            },
+            {
+              "name": "Approved",
+              "description": "Number of study permit applications approved.",
+              "role": "measure"
+            },
+            {
+              "name": "Withdrawn",
+              "description": "Number of study permit applications withdrawn.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval Rates",
+              "description": "Reported approval percentage.",
+              "role": "measure"
+            },
+            {
+              "name": "Total",
+              "description": "Total applications in the table period.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "This source overlaps with the February 2024 page but uses an earlier extraction/reporting snapshot.",
+            "Preserve source_snapshot when comparing these values because later snapshots revise counts."
+          ]
+        },
+        {
+          "id": "ca-ollo-international-student-program-at-a-glance-2024-11-04",
+          "title": "OLLO - International Student Program at a Glance - November 4, 2024",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/ollo-november-4-2024/international-student-population.html",
+          "local_file": "data/original/canada/ollo-international-student-program-at-a-glance-2024-11-04.html",
+          "derived_csv_files": [
+            "data/csv/canada/study_permit_applications_received_aggregate_2023_2024sep_snapshot_2024-11-04.csv",
+            "data/csv/canada/study_permit_applications_processed_aggregate_2023_2024sep_snapshot_2024-11-04.csv",
+            "data/csv/canada/study_permit_approval_rates_by_official_language_destination_2020_2024sep_snapshot_2024-11-04.csv"
+          ],
+          "format": "HTML tables",
+          "period_covered": "2020-2024 depending on table; main intake/outcome tables cover 2023 and 2024 through September 30",
+          "description": "Aggregate International Student Program page with received applications, processed outcomes, and approval rates by official language and destination region.",
+          "columns": [
+            {
+              "name": "Application type",
+              "description": "Study Permit or Study Permit Extension in aggregate intake/outcome tables.",
+              "role": "dimension"
+            },
+            {
+              "name": "Outcome",
+              "description": "Approved, refused, or withdrawn in processed application tables.",
+              "role": "outcome_dimension"
+            },
+            {
+              "name": "Official language",
+              "description": "Declared official language category in the language/destination approval-rate table.",
+              "role": "dimension"
+            },
+            {
+              "name": "Destination region",
+              "description": "QC or RoC in the language/destination approval-rate table.",
+              "role": "destination_subregion_dimension"
+            },
+            {
+              "name": "Count or approval rate",
+              "description": "Applications received, processed outcome counts and percentages, or approval rates depending on table.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "This source is aggregate or grouped by language/destination; it is not country-of-origin data.",
+            "The page says approval rates are based on applications processed by IRCC and calculated using total approved divided by the sum of approved and refused applications."
+          ]
+        },
+        {
+          "id": "ca-study-permit-holders-monthly-ircc-updates",
+          "title": "Temporary Residents: Study Permit Holders - Monthly IRCC Updates",
+          "url": "https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee",
+          "catalogue_mirror_url": "https://data.urbandatacentre.ca/catalogue/gov-canada-90115b00-f9b8-49e8-afa3-b4cff8facaee",
+          "local_catalogue_file": "data/original/canada/study-permit-holders-cudc-catalogue.html",
+          "format": "Open Canada dataset with multiple XLSX, XLS, and CSV resources",
+          "description": "Temporary residents who are in Canada on a study permit in the observed calendar year. Datasets include study permit holders by year in which permits became effective, with a valid permit in a calendar year, or with a valid permit on December 31.",
+          "columns_common_to_dataset_family": [
+            {
+              "name": "Country of citizenship",
+              "description": "Country of citizenship of the study permit holder.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Year",
+              "description": "Observed year or year in which permit became effective, depending on resource.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Quarter",
+              "description": "Observed quarter where monthly/quarterly resource is used.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Month",
+              "description": "Observed month where monthly resource is used.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Total",
+              "description": "Number of study permit holders or permits effective in the period, depending on resource.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "Values between 0 and 5 are suppressed as --, and other values are rounded to the nearest multiple of 5.",
+            "Rounded values may not sum to totals.",
+            "This dataset is useful for study permit volumes and flows, but not directly for application refusal or approval rates."
+          ]
+        },
+        {
+          "id": "ca-study-permit-holders-citizenship-monthly-csv",
+          "title": "Study permit holders by country of citizenship, monthly CSV",
+          "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_CITZ.csv",
+          "local_file": "data/original/canada/ODP-TR-Study-IS_CITZ.csv",
+          "format": "Tab-delimited text with .csv extension",
+          "columns": [
+            {
+              "name": "EN_YEAR",
+              "description": "Year in English.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "EN_QUARTER",
+              "description": "Quarter label in English.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "EN_MONTH",
+              "description": "Month label in English.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "FR_ANNEE",
+              "description": "Year in French. The raw header may contain an accented spelling.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "FR_TRIMESTRE",
+              "description": "Quarter label in French.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "FR_MOIS",
+              "description": "Month label in French.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "EN_COUNTRY_OF_CITIZENSHIP",
+              "description": "Country of citizenship in English.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "FR_PAYS_DE_CITOYENNETE",
+              "description": "Country of citizenship in French. The raw header may contain accented spelling.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "TOTAL",
+              "description": "Number of study permit holders or permits in the monthly resource.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The file is tab-delimited even though the extension is .csv.",
+            "Country names may contain commas, so parsers must use tab delimiters.",
+            "This source does not expose applications, refusals, or approval rates."
+          ]
+        },
+        {
+          "id": "ca-study-permit-holders-citizenship-sign-date-xlsx",
+          "title": "Canada - Study permit holders by country of citizenship and year in which permits became effective",
+          "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-IS_CITZ_sign_date.xlsx",
+          "local_file": "data/original/canada/EN_ODP-TR-Study-IS_CITZ_sign_date.xlsx",
+          "format": "XLSX wide table",
+          "sheet": "TR - SP CITZ",
+          "period_covered": "January 2015 to March 2026 in downloaded file",
+          "columns": [
+            {
+              "name": "Country of Citizenship",
+              "description": "Country of citizenship of the study permit holder.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Year columns",
+              "description": "Wide year header columns, for example 2015 through 2026.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Quarter columns",
+              "description": "Nested quarter columns such as Q1, Q2, Q3, and Q4.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Month columns",
+              "description": "Nested month columns such as Jan, Feb, and Mar.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Quarter total columns",
+              "description": "Quarter total columns embedded in the wide table.",
+              "role": "measure"
+            },
+            {
+              "name": "Monthly values",
+              "description": "Counts by country of citizenship and month.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "This is a wide spreadsheet and should be reshaped to long format for analysis.",
+            "Suppression and rounding rules from the Open Canada dataset family apply.",
+            "This measures permits becoming effective, not applications lodged or refused."
+          ]
+        },
+        {
+          "id": "ca-key-numbers-students-workers",
+          "title": "Key numbers on Canadian immigration - Understanding student and temporary worker numbers in Canada",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/reports-statistics/statistics-open-data/immigration-stats/students-workers.html",
+          "local_file": "data/original/canada/students-workers.html",
+          "format": "HTML tables and charts",
+          "data_as_of": "2026-03-31",
+          "columns": [
+            {
+              "name": "Month",
+              "description": "Month for monthly arrivals or active permit holder counts.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Study permit holders",
+              "description": "Number of people issued study permits in that month for arrivals, or number of active study permit holders for stock tables depending on section.",
+              "role": "measure"
+            },
+            {
+              "name": "Work permit holders",
+              "description": "Number of work permit holders in combined student and worker tables.",
+              "role": "measure"
+            },
+            {
+              "name": "Number of permit holders",
+              "description": "Count used in student arrivals and active student permit holder sections.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "The page counts arrivals based on the number of people issued study or work permits in the month.",
+            "If someone was issued both a study and work permit in the same month, they are counted under the study permit group.",
+            "Student arrivals exclude asylum claimants and permit extensions.",
+            "Values between 0 and 5 are suppressed as -- and other values are rounded to the closest multiple of 5."
+          ]
+        },
+        {
+          "id": "ca-ollo-q2700-french-bilingual-study-permit-outcomes-2023-2024apr",
+          "title": "OLLO Order Paper Question Q-2700 - French-speaking and bilingual study permit applications processed by country of residence",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/ollo-november-4-2024/order-paper-question-q2700.html",
+          "local_file": "data/original/canada/ollo-order-paper-q2700-2024-11-04.html",
+          "format": "HTML table",
+          "coverage": {
+            "period_type": "calendar_year_and_partial_year",
+            "period": "2023 and 2024 January-April",
+            "origin_dimension": "country_of_residence",
+            "included_applicants": "French-speaking or bilingual applicants only",
+            "excluded_applications": "study permit extensions"
+          },
+          "columns": [
+            {
+              "name": "Country of Residence",
+              "description": "Declared country of residence of the applicant.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "Approved",
+              "description": "Number of study permit applications approved in the period.",
+              "role": "measure"
+            },
+            {
+              "name": "Approval Rate",
+              "description": "Source-reported approval rate.",
+              "role": "measure"
+            },
+            {
+              "name": "Refused",
+              "description": "Number of study permit applications refused in the period.",
+              "role": "measure"
+            },
+            {
+              "name": "Total Processed",
+              "description": "Total processed across 2023 and 2024 January-April in the source table.",
+              "role": "measure"
+            }
+          ],
+          "derived_csv": "data/csv/canada/study_permit_french_bilingual_outcomes_by_country_residence_2023_2024apr_snapshot_2024-11-04.csv",
+          "processed_file": "tmp/processed/canada/study_permit_french_bilingual_common_long_sqlite_only.csv",
+          "useful_notes": [
+            "This is not all Canada study permit applicants; it is limited to French-speaking or bilingual applicants.",
+            "The extracted rows were inserted into SQLite only and intentionally not added to data/student_visa_common_long.csv.",
+            "The source states that extensions are excluded."
+          ]
+        },
+        {
+          "id": "ca-cimm-q78-french-bilingual-study-permit-summary-2025",
+          "title": "CIMM Question No. Q-78 - French-speaking international students summary",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-oct-21-2025/q-78.html",
+          "local_file": "data/original/canada/cimm-question-q78-2025-10-21.html",
+          "format": "HTML prose summary",
+          "coverage": {
+            "period": "2023, 2024, and 2025 January-April",
+            "included_applicants": "French-speaking or bilingual applicants only"
+          },
+          "columns": [],
+          "useful_notes": [
+            "The HTML page references Annex A but the downloaded English page does not expose the full country table; it was preserved as provenance but not converted to CSV in this run."
+          ]
+        },
+        {
+          "id": "ca-cow-international-students-2025",
+          "title": "COW International Students - June 9, 2025",
+          "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cow-jun-9-2025/international-students.html",
+          "local_file": "data/original/canada/cow-international-students-2025-06-09.html",
+          "format": "HTML prose facts and figures",
+          "coverage": {
+            "period": "2024 and 2025 context"
+          },
+          "columns": [],
+          "useful_notes": [
+            "This page provides aggregate context, including 2024 approved new study permits and 2025 intake trend language, but no country-level table was extracted in this run."
+          ]
+        }
+      ],
+      "comparability_notes": [
+        "Canada can support approval-rate analysis for 2019, 2020, 2021, and January 2022 using the CIMM all-country country-of-residence source.",
+        "Canada can support more recent 2022-2024 outcome analysis only for top 10 country-of-residence rows plus Other Countries and Grand Total from the retrieved CIMM snapshots.",
+        "The approval/outcome sources use country of residence, while the IRCC/Open Canada permit-holder sources use country of citizenship. Do not merge these origin concepts without an explicit origin_country_type field.",
+        "Do not compare Canada's issued permit or permit-holder counts directly to New Zealand or Australia application approval rates.",
+        "The OLLO Q-2700 rows are a French-speaking/bilingual applicant subset and must not be merged with all-applicant Canada approval-rate rows without a subset flag.",
+        "The Q-2700 extracted rows were added to SQLite only; data/student_visa_common_long.csv remains the broader common CSV build output."
+      ]
+    },
+    {
+      "country": "United States",
+      "country_slug": "united-states",
+      "publisher": "U.S. Department of State, Bureau of Consular Affairs",
+      "destination_country": "United States",
+      "overall_description": "Official nonimmigrant visa statistics. The current extracted dataset uses the multi-year NIV Detail Table for F and M student visa classes by nationality and fiscal year. This is an issuance dataset, not an application/refusal or approval-rate dataset by nationality.",
+      "download_directory": "data/original/united-states",
+      "source_records": [
+        {
+          "id": "us-niv-detail-table-fy1997-2024",
+          "title": "FY1997-2024 NIV Detail Table",
+          "url": "https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics.html",
+          "direct_download_url": "https://travel.state.gov/content/dam/visas/Statistics/Non-Immigrant-Statistics/NIVDetailTables/FYs97-24_NIVDetailTable.xlsx",
+          "local_file": "data/original/united-states/FYs97-24_NIVDetailTable.xlsx",
+          "format": "XLSX workbook",
+          "coverage": {
+            "period_type": "fiscal_year",
+            "period": "FY1997-FY2024",
+            "included_visa_classes": [
+              "F1",
+              "F2",
+              "M1",
+              "M2"
+            ],
+            "origin_dimension": "nationality"
+          },
+          "columns": [
+            {
+              "name": "Fiscal Year sheet",
+              "description": "Each worksheet represents one U.S. fiscal year.",
+              "role": "time_dimension"
+            },
+            {
+              "name": "Nationality",
+              "description": "Nationality as reported in the Department of State detail table.",
+              "role": "origin_dimension"
+            },
+            {
+              "name": "F1",
+              "description": "Academic student visa issuances.",
+              "role": "measure"
+            },
+            {
+              "name": "F2",
+              "description": "Dependent of F1 student visa issuances.",
+              "role": "measure"
+            },
+            {
+              "name": "M1",
+              "description": "Vocational/nonacademic student visa issuances.",
+              "role": "measure"
+            },
+            {
+              "name": "M2",
+              "description": "Dependent of M1 student visa issuances.",
+              "role": "measure"
+            }
+          ],
+          "derived_csv": "data/csv/united-states/us_niv_student_issuances_by_nationality_fy1997_2024.csv",
+          "useful_notes": [
+            "The table reports issuances, not applications received, refusals, or approval rates by nationality.",
+            "Region separator rows and grand-total rows are excluded during extraction.",
+            "F1 and M1 are primary student classes; F2 and M2 are dependent classes."
+          ]
+        },
+        {
+          "id": "us-niv-workload-by-visa-category-fy2023-fy2024",
+          "title": "NIV Workload by Visa Category",
+          "url": "https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics.html",
+          "local_files": [
+            "data/original/united-states/FY2023NIVWorkloadbyVisaCategory.pdf",
+            "data/original/united-states/FY2024NIVWorkloadbyVisaCategory.pdf"
+          ],
+          "format": "PDF tables",
+          "coverage": {
+            "period_type": "fiscal_year",
+            "period": "FY2023-FY2024 currently downloaded"
+          },
+          "columns": [
+            {
+              "name": "Visa category",
+              "description": "Nonimmigrant visa category/class grouping.",
+              "role": "visa_dimension"
+            },
+            {
+              "name": "Applications",
+              "description": "Worldwide workload count by visa category.",
+              "role": "measure"
+            },
+            {
+              "name": "Issuances",
+              "description": "Worldwide issuance count by visa category.",
+              "role": "measure"
+            },
+            {
+              "name": "Refusals",
+              "description": "Worldwide refusal count by visa category.",
+              "role": "measure"
+            }
+          ],
+          "useful_notes": [
+            "These PDFs may support worldwide visa-class approval/refusal rates, but not nationality-level approval rates.",
+            "They were downloaded for provenance but not parsed into SQLite in the current extraction."
+          ]
+        }
+      ],
+      "comparability_notes": [
+        "The United States rows currently added to SQLite are issuance counts only. They cannot support nationality-level approval-rate modelling without a separate official application/refusal denominator by nationality.",
+        "Do not compare US issuances directly to Australia/New Zealand grant rates or Canada outcome rates as an approval probability.",
+        "Generated source-level and common CSVs and SQLite retain F1 and M1 only. F2 and M2 dependent classes remain documented as fields in the raw workbook but are excluded from generated artifacts."
+      ]
+    }
+  ],
+  "cross_country_notes": [
+    "New Zealand and Australia are the strongest first comparative pair because both expose origin-country student visa decision rates.",
+    "Australia grant rates are decision-based, while New Zealand approval rates are reported against the source's application volume. Definitions must be aligned before comparison.",
+    "The UK can likely support student applications and outcomes by nationality after filtering entry clearance data to study categories, but applications and decisions may not refer to the same cohort or quarter.",
+    "Canada has official approval/outcome data through CIMM transparency pages, but it is by country of residence and has limited all-country coverage after January 2022; the Open Canada files remain permit volume sources, not approval-rate sources.",
+    "United States public nationality-level data currently supports student visa issuances by F/M class, not approval rates."
+  ]
+}

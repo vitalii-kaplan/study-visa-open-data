@@ -1,0 +1,215 @@
+destination_country,source_label,canonical_country,normalization_status,notes
+,Bahama Islands The,Bahamas,alias_matched,Common source wording
+,Bahamas The,Bahamas,alias_matched,Common inverted wording
+,Bolivia,Bolivia (Plurinational State of),alias_matched,UNSD formal short name
+,Bosnia-Hercegovina,Bosnia and Herzegovina,alias_matched,Common source spelling
+,Bosnia-Herzegovina,Bosnia and Herzegovina,alias_matched,Common source spelling
+,Brunei,Brunei Darussalam,alias_matched,Common short name
+,Burma,Myanmar,alias_matched,Former country name
+,Cape Verde,Cabo Verde,alias_matched,Former English name
+,China People's Republic of,China,alias_matched,Common formal wording
+,Congo Democratic Republic of the,Democratic Republic of the Congo,alias_matched,Common source wording
+,Congo Democratic Republic,Democratic Republic of the Congo,alias_matched,Common source wording
+,Democratic Republic of Congo,Democratic Republic of the Congo,alias_matched,Common reordered name
+,Congo People's Republic of the,Congo,alias_matched,Historical formal wording
+,Czech Republic,Czechia,alias_matched,Former UN short name
+,Federated States of Micronesia,Micronesia (Federated States of),alias_matched,Common reordered name
+,Gambia The,Gambia,alias_matched,Common inverted wording
+,Great Britain,United Kingdom of Great Britain and Northern Ireland,alias_matched,Common short name
+,Hong Kong,"China, Hong Kong Special Administrative Region",alias_matched,UNSD distinct area record
+,Hong Kong SAR,"China, Hong Kong Special Administrative Region",alias_matched,UNSD distinct area record
+,Iran,Iran (Islamic Republic of),alias_matched,Common short name
+,Ireland Republic of,Ireland,alias_matched,Common reordered name
+,Korea North,Democratic People's Republic of Korea,alias_matched,Common inverted name
+,North Korea,Democratic People's Republic of Korea,alias_matched,Common short name
+,Korea Republic of,Republic of Korea,alias_matched,Common reordered name
+,Korea South,Republic of Korea,alias_matched,Common inverted name
+,South Korea,Republic of Korea,alias_matched,Common short name
+,Laos,Lao People's Democratic Republic,alias_matched,Common short name
+,Lao Peoples Dem Republic,Lao People's Democratic Republic,alias_matched,Source abbreviation
+,Macau,"China, Macao Special Administrative Region",alias_matched,UNSD spelling is Macao
+,Macau SAR,"China, Macao Special Administrative Region",alias_matched,UNSD spelling is Macao
+,Macedonia,North Macedonia,alias_matched,Former country name
+,Micronesia,Micronesia (Federated States of),alias_matched,Common short name
+,Moldova,Republic of Moldova,alias_matched,Common short name
+,Mongolia People's Republic of,Mongolia,alias_matched,Historical formal wording
+,Myanmar (Burma),Myanmar,alias_matched,Combined current and former names
+,Netherlands,Netherlands (Kingdom of the),alias_matched,Common short name
+,Netherlands The,Netherlands (Kingdom of the),alias_matched,Common inverted wording
+,Palestine,State of Palestine,alias_matched,Common short name
+,Palestinian Authority (Gaza/West Bank),State of Palestine,alias_matched,Source geographic wording; no separate UNSD Gaza/West Bank records
+,Russia,Russian Federation,alias_matched,Common short name
+,St Kitts - Nevis,Saint Kitts and Nevis,alias_matched,Source abbreviation
+,St Kitts and Nevis,Saint Kitts and Nevis,alias_matched,Source abbreviation
+,St Lucia,Saint Lucia,alias_matched,Source abbreviation
+,St Vincent and the Grenadines,Saint Vincent and the Grenadines,alias_matched,Source abbreviation
+,Swaziland,Eswatini,alias_matched,Former country name
+,Syria,Syrian Arab Republic,alias_matched,Common short name
+,Tanzania,United Republic of Tanzania,alias_matched,Common short name
+,Turkey,Türkiye,alias_matched,Former UN short name
+,United Kingdom,United Kingdom of Great Britain and Northern Ireland,alias_matched,Common short name
+,United States,United States of America,alias_matched,Common short name
+,Venezuela,Venezuela (Bolivarian Republic of),alias_matched,Common short name
+,Vietnam,Viet Nam,alias_matched,Common spelling
+,Yemen Republic of,Yemen,alias_matched,Common formal wording
+,Bailwick of Jersey,Jersey,alias_matched,Formal territory wording
+,Falkland Islands,Falkland Islands (Malvinas),alias_matched,UNSD distinct area record
+Australia,"China, Peoples Republic of (excl SARs)",China,alias_matched,Australian citizenship label excludes separately reported SARs
+Australia,Republic of South Sudan,South Sudan,alias_matched,Australian source wording
+Australia,Cote d'Ivoire,Côte d’Ivoire,alias_matched,Australian ASCII punctuation and spelling
+Australia,"Korea, North",Democratic People's Republic of Korea,alias_matched,Australian inverted name
+Australia,"Korea, South",Republic of Korea,alias_matched,Australian inverted name
+Australia,"Germany, Fed Republic of",Germany,alias_matched,Australian historical wording
+Australia,St Kitts and Nevis,Saint Kitts and Nevis,alias_matched,Australian abbreviation
+Australia,Swaziland,Eswatini,alias_matched,Former country name
+Australia,Turkiye,Türkiye,alias_matched,Australian ASCII spelling
+Australia,"Hong Kong (SAR of the PRC)","China, Hong Kong Special Administrative Region",alias_matched,UNSD distinct area record
+Australia,"Macau (SAR of the PRC)","China, Macao Special Administrative Region",alias_matched,UNSD spelling is Macao
+Australia,"Ireland, Republic of",Ireland,alias_matched,Australian inverted name
+Australia,"Netherlands, Kingdom of The",Netherlands (Kingdom of the),alias_matched,Australian capitalization
+Australia,"Congo, Republic of",Congo,alias_matched,Australian inverted name
+Australia,"Congo, Dem Republic of The",Democratic Republic of the Congo,alias_matched,Australian inverted name
+Australia,Micronesia,Micronesia (Federated States of),alias_matched,Australian short name
+Australia,"Palestine, State of",State of Palestine,alias_matched,Australian inverted name
+Australia,St Vincent & the Grenadines,Saint Vincent and the Grenadines,alias_matched,Australian abbreviation
+Australia,Saint Maarten (Dutch Part),Sint Maarten (Dutch part),alias_matched,UNSD spelling
+Australia,"Bonaire, Saint Eustatius & Saba","Bonaire, Sint Eustatius and Saba",alias_matched,UNSD spelling
+Australia,Curacao,Curaçao,alias_matched,Australian ASCII spelling
+Australia,British Indian Ocean Terrtories,British Indian Ocean Territory,alias_matched,Australian typo; UNSD distinct area record
+Australia,Virgin Islands (British),British Virgin Islands,alias_matched,Australian inverted name
+Australia,Vatican City State Holy See,Holy See,alias_matched,Australian wording
+Australia,Falkland Islands,Falkland Islands (Malvinas),alias_matched,UNSD distinct area record
+Australia,Saint Helena Ascension and Tristan Da Cunha,Saint Helena,alias_matched,Australian grouping mapped to the only matching UNSD area; grouping caveat retained in source label
+Australia,Not Specified,,unknown,Source explicitly does not state a citizenship
+Australia,Stateless Person,,unknown,Not a country or area
+Australia,Refugee,,unknown,Status rather than country or area
+Australia,UN Convention Refugee,,unknown,Status rather than country or area
+Australia,UNMIK Travel Document,,unknown,Travel document rather than country or area
+Australia,United Nations Organisation,,aggregate,Organization rather than country or area
+Canada,Burkina-Faso,Burkina Faso,alias_matched,IRCC punctuation
+Canada,"Guinea, Republic of",Guinea,alias_matched,IRCC formal wording
+Canada,"Mali, Republic of",Mali,alias_matched,IRCC formal wording
+Canada,"Togo, Republic of",Togo,alias_matched,IRCC formal wording
+Canada,"Panama, Republic of",Panama,alias_matched,IRCC formal wording
+Canada,"Trinidad and Tobago, Republic of",Trinidad and Tobago,alias_matched,IRCC formal wording
+Canada,"Benin, Republic of",Benin,alias_matched,IRCC formal wording
+Canada,"Cameroon, Federal Republic of",Cameroon,alias_matched,IRCC formal wording
+Canada,Federal Republic of Cameroon,Cameroon,alias_matched,IRCC formal wording
+Canada,"Indonesia, Republic of",Indonesia,alias_matched,IRCC formal wording
+Canada,Republic of Indonesia,Indonesia,alias_matched,IRCC formal wording
+Canada,"Ivory Coast, Republic of",Côte d’Ivoire,alias_matched,IRCC English name
+Canada,Republic of Ivory Coast,Côte d’Ivoire,alias_matched,IRCC English name
+Canada,"South Africa, Republic of",South Africa,alias_matched,IRCC formal wording
+Canada,Republic of South Africa,South Africa,alias_matched,IRCC formal wording
+Canada,"Tanzania, United Republic of",United Republic of Tanzania,alias_matched,IRCC inverted name
+Canada,"Serbia, Republic of",Serbia,alias_matched,IRCC formal wording
+Canada,"Sudan, Democratic Republic of",Sudan,alias_matched,IRCC historical formal wording
+Canada,Democratic Republic of Sudan,Sudan,alias_matched,IRCC historical formal wording
+Canada,Gabon Republic,Gabon,alias_matched,IRCC formal wording
+Canada,"Niger, Republic of the",Niger,alias_matched,IRCC formal wording
+Canada,Republic of the Niger,Niger,alias_matched,IRCC formal wording
+Canada,"Chad, Republic of",Chad,alias_matched,IRCC formal wording
+Canada,Slovak Republic,Slovakia,alias_matched,IRCC formal wording
+Canada,"Kosovo, Republic of",,unmatched,No separate country or area record in the supplied UNSD snapshot
+Canada,"Bonaire, Sin Eustatius And Saba","Bonaire, Sint Eustatius and Saba",alias_matched,IRCC typo
+Canada,Curacao,Curaçao,alias_matched,IRCC ASCII spelling
+Canada,Saint-Martin,Saint Martin (French Part),alias_matched,UNSD distinct area record
+Canada,Sint-Maarten,Sint Maarten (Dutch part),alias_matched,UNSD distinct area record
+Canada,"Virgin Islands, British",British Virgin Islands,alias_matched,IRCC inverted name
+Canada,"Virgin Islands, U.S.",United States Virgin Islands,alias_matched,IRCC abbreviation
+Canada,"Northern Mariana Islands, Commonwealth of the",Northern Mariana Islands,alias_matched,IRCC formal wording
+Canada,Commonwealth of the Northern Mariana Islands,Northern Mariana Islands,alias_matched,IRCC formal wording
+Canada,"Samoa, Independent State of",Samoa,alias_matched,IRCC formal wording
+Canada,Holy See,Holy See,alias_matched,Reviewed pass-through alias
+Canada,"Palau, Republic of",Palau,alias_matched,IRCC formal wording
+Canada,Republic of Palau,Palau,alias_matched,IRCC formal wording
+Canada,"Marshall Islands, Republic of the",Marshall Islands,alias_matched,IRCC formal wording
+Canada,Republic of The Marshall Islands,Marshall Islands,alias_matched,IRCC formal wording
+Canada,"East Timor, Democratic Republic of",Timor-Leste,alias_matched,Former country name
+Canada,"Botswana, Republic of",Botswana,alias_matched,IRCC formal wording
+Canada,"Somalia, Democratic Republic of",Somalia,alias_matched,IRCC historical formal wording
+Canada,"Djibouti, Republic of",Djibouti,alias_matched,IRCC formal wording
+Canada,Republic of Djibouti,Djibouti,alias_matched,IRCC formal wording
+Canada,"Montenegro, Republic of",Montenegro,alias_matched,IRCC formal wording
+Canada,Cape Verde Islands,Cabo Verde,alias_matched,Former English name
+Canada,"Korea, People's Democratic Republic of",Democratic People's Republic of Korea,alias_matched,IRCC inverted name
+Canada,"Maldives, Republic of",Maldives,alias_matched,IRCC formal wording
+Canada,Surinam,Suriname,alias_matched,IRCC spelling
+Canada,"Equatorial Guinea, Republic of",Equatorial Guinea,alias_matched,IRCC formal wording
+Canada,"South Sudan, Republic of",South Sudan,alias_matched,IRCC formal wording
+Canada,People's Republic of China,China,alias_matched,IRCC formal wording
+Canada,Federal Republic of Germany,Germany,alias_matched,IRCC historical formal wording
+Canada,Macao SAR,"China, Macao Special Administrative Region",alias_matched,UNSD distinct area record
+Canada,Peoples Republic of Benin,Benin,alias_matched,IRCC historical formal wording
+Canada,Republic of Ireland,Ireland,alias_matched,IRCC formal wording
+Canada,Socialist Republic of Vietnam,Viet Nam,alias_matched,IRCC formal wording
+Canada,The Netherlands,Netherlands (Kingdom of the),alias_matched,IRCC short name
+Canada,United Republic of Tanzania,United Republic of Tanzania,alias_matched,Reviewed pass-through alias
+Canada,St. Pierre and Miquelon,Saint Pierre and Miquelon,alias_matched,IRCC abbreviation
+Canada,Bosnia-Hercegovina,Bosnia and Herzegovina,alias_matched,IRCC spelling
+Canada,Tadjikistan,Tajikistan,alias_matched,IRCC spelling
+Canada,Hong Kong Special Administrative Region (SAR),"China, Hong Kong Special Administrative Region",alias_matched,UNSD distinct area record
+Canada,Papau New Guinea,Papua New Guinea,alias_matched,IRCC typo
+Canada,Pitcairn Island,Pitcairn,alias_matched,UNSD distinct area record
+Canada,Saint-Barthelemy,Saint Barthélemy,alias_matched,UNSD distinct area record
+Canada,"Solomons, The",Solomon Islands,alias_matched,IRCC wording
+Canada,Wallis And Futuna,Wallis and Futuna Islands,alias_matched,UNSD distinct area record
+Canada,United Kingdom and Overseas Territories,,aggregate,Combined category must not be assigned only to the United Kingdom
+Canada,Total unique persons,,aggregate,Source total
+Canada,Grand Total,,aggregate,Source total
+Canada,Other Countries,,aggregate,Source residual category
+Canada,Other,,aggregate,Source residual category
+Canada,Country of Citizenship not stated,,unknown,Source explicitly does not state citizenship
+Canada,Unspecified,,unknown,Source explicitly does not state origin
+Canada,Stateless,,unknown,Not a country or area
+Canada,The Netherlands Antilles,,unmatched,Historical area absent from the current UNSD snapshot
+Canada,"Netherlands Antilles, The",,unmatched,Historical area absent from the current UNSD snapshot
+Canada,Tibet,,unmatched,No separate country or area record in the supplied UNSD snapshot
+Canada,Azores,,unmatched,Subnational area absent from the current UNSD snapshot
+Canada,Canary Islands,,unmatched,Subnational area absent from the current UNSD snapshot
+Canada,Channel Islands,,aggregate,Combined territory category
+Canada,Madeira,,unmatched,Subnational area absent from the current UNSD snapshot
+Canada,Czechoslovakia,,unmatched,Historical country absent from the current UNSD snapshot
+Canada,Serbia and Montenegro,,unmatched,Historical country absent from the current UNSD snapshot
+New Zealand,Total,,aggregate,Source total
+United Kingdom,Ivory Coast,Côte d’Ivoire,alias_matched,UK English name
+United Kingdom,East Timor,Timor-Leste,alias_matched,Former country name
+United Kingdom,Cayman Islands (British),Cayman Islands,alias_matched,UK qualifier
+United Kingdom,Bermuda (British),Bermuda,alias_matched,UK qualifier
+United Kingdom,Turks and Caicos Islands (British),Turks and Caicos Islands,alias_matched,UK qualifier
+United Kingdom,Virgin Islands (British),British Virgin Islands,alias_matched,UK inverted name
+United Kingdom,Anguilla (British),Anguilla,alias_matched,UK qualifier
+United Kingdom,Gibraltar (British),Gibraltar,alias_matched,UK qualifier
+United Kingdom,Montserrat (British),Montserrat,alias_matched,UK qualifier
+United Kingdom,Puerto Rico (United States),Puerto Rico,alias_matched,UK qualifier
+United Kingdom,Other and unknown,,aggregate,Combined residual and unknown category
+United Kingdom,Refugee,,unknown,Status rather than country or area
+United Kingdom,Stateless,,unknown,Not a country or area
+United Kingdom,British overseas citizens,,unknown,Citizenship class rather than one country or area
+United Kingdom,Former Yugoslavia,,unmatched,Historical aggregate absent from current UNSD snapshot
+United Kingdom,Cyprus (Northern part of),,unmatched,No separate country or area record in supplied UNSD snapshot
+United Kingdom,Serbia and Montenegro,,unmatched,Historical country absent from current UNSD snapshot
+United States,China - mainland,China,alias_matched,US nationality label
+United States,China - Taiwan,,unmatched,No separate country or area record in supplied UNSD snapshot
+United States,Hong Kong S.A.R.,"China, Hong Kong Special Administrative Region",alias_matched,UNSD distinct area record
+United States,Macau S.A.R.,"China, Macao Special Administrative Region",alias_matched,UNSD distinct area record
+United States,Great Britain and Northern Ireland,United Kingdom of Great Britain and Northern Ireland,alias_matched,US short wording
+United States,Congo Dem. Rep. of the (Congo Kinshasa),Democratic Republic of the Congo,alias_matched,US wording
+United States,Congo Dem. Rep. of the (Kinshasa),Democratic Republic of the Congo,alias_matched,US wording
+United States,Congo Rep. of the (Congo Brazzaville),Congo,alias_matched,US wording
+United States,Congo Rep. of the (Brazzaville),Congo,alias_matched,US wording
+United States,Congo Republic of the,Congo,alias_matched,US wording
+United States,Vatican City,Holy See,alias_matched,US wording
+United States,No Nationality,,unknown,Source explicitly states no nationality
+United States,Palestinian Authority Travel Document,,unknown,Travel document rather than country or area
+United States,United Nations Laissez-Passer,,unknown,Travel document rather than country or area
+United States,Totals for Africa,,aggregate,Regional total
+United States,Totals for Asia,,aggregate,Regional total
+United States,Totals for Europe,,aggregate,Regional total
+United States,Totals for North America,,aggregate,Regional total
+United States,Totals for Oceania,,aggregate,Regional total
+United States,Totals for South America,,aggregate,Regional total
+United States,Totals for Unknown,,aggregate,Unknown-origin total
+United States,Grand Totals,,aggregate,Source total
+United States,Serbia and Montenegro,,unmatched,Historical country absent from current UNSD snapshot
+United States,Kosovo,,unmatched,No separate country or area record in supplied UNSD snapshot
