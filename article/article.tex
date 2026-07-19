@@ -1,7 +1,7 @@
-\documentclass[11pt,a4paper]{article}
+% !TeX program = pdflatex
+\documentclass[runningheads]{llncs}
 
-\usepackage[a4paper,margin=25mm]{geometry}
-\usepackage{fontspec}
+\usepackage[T1]{fontenc}
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -12,8 +12,6 @@
 \usepackage{hyperref}
 \usepackage{xurl}
 \usepackage{listings}
-\usepackage{caption}
-\usepackage{amsmath}
 
 \hypersetup{
   colorlinks=true,
@@ -25,8 +23,6 @@
 }
 
 \setlist{nosep,leftmargin=*}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.55em}
 \setlength{\emergencystretch}{1em}
 \renewcommand{\arraystretch}{1.16}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
@@ -44,19 +40,21 @@
   showstringspaces=false
 }
 
-\title{\textbf{A Reproducible Cross-National Dataset of Public Student Visa and Study Permit Statistics}}
-\author{Vitalii Kaplan}
-\date{Dataset snapshot: 19 July 2026}
+\title{A Reproducible Cross-National Dataset of Public Student Visa and Study Permit Statistics}
+\titlerunning{A Reproducible Cross-National Student-Visa Dataset}
+\author{Vitalii Kaplan\orcidID{0009-0009-8181-2863}}
+\authorrunning{V. Kaplan}
+\institute{\email{2333275007@alu.istinye.edu.tr}}
 
 \begin{document}
 
+\raggedbottom
 \maketitle
 
 \begin{abstract}
 In this paper, we describe the collection, cleaning, and unification of public administrative data on international student visas and study permits. The resulting artifact, \file{data/student_visa.sqlite}, contains 9,510,731 aggregate measure records in a 30-field long-form schema assembled from official sources for five destinations: Australia, Canada, New Zealand, the United Kingdom, and the United States. Temporal coverage extends from Australian financial year 2005--06 to 30 April 2026, Canadian records from 2015 to 2026 with outcome subsets for 2019--April 2024, New Zealand records from 2022 to 2025, UK records from 2005 to the first quarter of 2026, and US records from fiscal year 1997 to fiscal year 2024. The database retains distinct measures for applications, decisions, grants, refusals, issuances, permit holders, and reported rates instead of treating unlike official definitions as interchangeable. Origin-country labels are unified against a preserved 248-record United Nations M49 reference using reviewed aliases and explicit statuses for direct matches, alias matches, aggregates, unknown values, and unmatched labels. The preparation process is reproducible from preserved raw sources with a single build command and separates extraction, transformation, normalization, database loading, and validation. The collected data can support analysis of the implementation and evolution of student-migration policies and administrative practices across major study destinations, as well as carefully scoped comparisons among them. Source-specific differences in legal categories, applicant populations, time bases, origin concepts, and statistical denominators remain explicit in the artifact.
+\keywords{Educational migration \and Student visa \and Open data collection \and Historical data}
 \end{abstract}
-
-\textbf{Keywords:} Educational migration, student visa, open data collection, historical data
 
 \section{Introduction}
 
@@ -268,17 +266,17 @@ Table~\ref{tab:coverage} reports database counts obtained from the rebuilt SQLit
 \caption{Coverage of the strict SQLite database.}
 \label{tab:coverage}
 \small
-\begin{tabularx}{\textwidth}{@{}L{2.2cm}r r r L{3.0cm}Y@{}}
+\begin{tabularx}{\textwidth}{@{}L{1.8cm}r L{1.5cm}L{2.4cm}Y@{}}
 \toprule
-Destination & Measure records & Origin labels & M49 areas & Period & Included measure families \\
+Destination & Records & Origins & Period & Included measures \\
 \midrule
-Australia & 9,319,202 & 236 & 224 & FY2005--06 to 30 Apr 2026 & Lodgements; grants; decisions; refusals; grant rates \\
-Canada & 54,729 & 283 & 235 & 2015--2026; outcome subsets 2019--Apr 2024 & Applications; outcomes; issuances; permit-holder and effective counts \\
-New Zealand & 2,777 & 180 & 178 & 2022--2025 & Applications; approvals; declines; rates \\
-United Kingdom & 122,895 & 212 & 203 & 2005--2026 Q1 & Study applications/outcomes; CAS-matched course grants \\
-United States & 11,128 & 211 & 195 & FY1997--FY2024 & F1 and M1 issuances \\
+Australia & 9,319,202 & 236/224 & FY2005--06 to 30 Apr 2026 & Lodgements, grants, decisions, refusals, and grant rates \\
+Canada & 54,729 & 283/235 & 2015--2026; outcome subsets 2019--Apr 2024 & Applications, outcomes, issuances, and permit-holder/effective counts \\
+New Zealand & 2,777 & 180/178 & 2022--2025 & Applications, approvals, declines, and rates \\
+United Kingdom & 122,895 & 212/203 & 2005--2026 Q1 & Study applications/outcomes and CAS-matched course grants \\
+United States & 11,128 & 211/195 & FY1997--FY2024 & F1 and M1 issuances \\
 \midrule
-Total & 9,510,731 & --- & --- & --- & --- \\
+Total & 9,510,731 & --- & --- & --- \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -289,7 +287,7 @@ Australia accounts for 98.0\% of database records. This reflects the dimensional
 
 All SQLite columns are stored as text to preserve source formatting and allow uniform bulk loading. Consumers should cast \texttt{measure\_value} according to \texttt{measure\_unit}; validation ensures counts are non-negative integer strings and percentages lie between 0 and 100. The 30 fields are grouped in Table~\ref{tab:schema}.
 
-\begin{longtable}{@{}L{3.7cm}L{5.0cm}L{5.9cm}@{}}
+\begin{longtable}{@{}L{2.4cm}L{4.1cm}L{5.3cm}@{}}
 \caption{Common long-table data dictionary.}\label{tab:schema}\\
 \toprule
 Group & Fields & Interpretation \\
@@ -342,7 +340,7 @@ The normalization distribution is reported in Table~\ref{tab:normalization-statu
 For the audited Australian Higher Education/Primary slice, records must be unique on all pivot-cache dimensions. This check guards against the earlier omission of lodgement channel and last-visa-held fields. Every Australian grant-rate record must satisfy
 
 \begin{equation}
-  \text{grants} + \text{refusals} = \text{decisions}.
+  \mathrm{grants} + \mathrm{refusals} = \mathrm{decisions}.
 \end{equation}
 
 Count values in the Australian source tables and the final database must be non-negative integers. Percentage values must lie in the closed interval $[0,100]$. Every SQLite row must contain a repository-relative source-file value.
@@ -408,13 +406,13 @@ The expected final query result for this snapshot is \texttt{9510731}. Reproduct
 
 This dataset demonstrates that a substantial origin-aware resource can be reconstructed from public student-visa and study-permit statistics, but also that nominally similar government measures are not automatically comparable. The central methodological result is therefore both an artifact and a boundary: 9.5 million strictly scoped measure records can be queried through a common schema, while source-specific legal categories, populations, origin concepts, time bases, and denominators remain visible. Preserving those distinctions makes the resource more useful for responsible comparative research than a smaller but falsely uniform approval-rate table.
 
-\section*{Acknowledgements}
-
+\begin{credits}
+\subsubsection{\ackname}
 The dataset depends on public statistical releases produced by Immigration New Zealand; the Australian Department of Home Affairs; the UK Home Office; Immigration, Refugees and Citizenship Canada; the US Department of State; and the United Nations Statistics Division.
 
-\section*{Competing interests}
-
+\subsubsection{\discintname}
 The author declares no competing interests.
+\end{credits}
 
 \input{references.bbl}
 
