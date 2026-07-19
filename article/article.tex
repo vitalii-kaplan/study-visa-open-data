@@ -79,6 +79,8 @@ The contributions are:
 
 The dataset is intended for aggregate analysis. It contains no personal records, does not represent individual application histories, and must not be used as individualized visa advice or as evidence of discrimination or causality without a separately designed study.
 
+The code and documentation are maintained in the \emph{study-visa-open-data} GitHub project \cite{repository}. Unless an absolute location is explicitly given, every relative file and directory path in this article is interpreted from the root of that project.
+
 \section{Data Practices in Related Research}
 
 % This section is intentionally left blank pending a review of data practices in related research.
@@ -383,18 +385,17 @@ Appropriate uses include audits of public-data availability, destination-specifi
 
 \section{Data and code availability}
 
-The primary release file is \file{data/student_visa.sqlite}. The database, common CSV, raw sources, source-level CSVs, and validation audit are distributed as a separate data artifact (DOI forthcoming), rather than committed to the GitHub code repository. The code repository contains the scripts, machine-readable source inventory at \file{data/country-schema.json}, retrieval documentation at \file{data/RETRIEVAL.md}, and executable workflow description at \file{scripts/collect_data_script_chain.json}. The data files can be obtained from the artifact or recreated with the documented retrieval and build scripts.
+The primary release file is \file{data/student_visa.sqlite}. The database, common CSV, raw sources, source-level CSVs, and validation audit are distributed as a separate data artifact (DOI forthcoming), rather than committed to the GitHub code repository \cite{repository}. The code repository contains the scripts, machine-readable source inventory at \file{data/country-schema.json}, retrieval documentation at \file{data/RETRIEVAL.md}, and executable workflow description at \file{scripts/collect_data_script_chain.json}. The data files can be obtained from the artifact or recreated with the documented retrieval and build scripts.
 
-At the time of this draft, no public repository URL, archival DOI, dataset version identifier, or project-wide reuse license has been assigned. These items should be added before submission or public release. Licences and attribution requirements of each underlying government source remain applicable independently of any licence later assigned to the transformation code or derived database.
+At the time of this draft, no archival DOI or dataset version identifier has been assigned. These items should be added before submission or public release. Licences and attribution requirements of each underlying government source remain applicable independently of the project-wide reuse licence assigned to the repository or any licence later assigned to the derived database.
 
 \section{Reproducibility checklist}
 
 A release can be independently checked from the repository root as follows:
 
 \begin{lstlisting}[style=code,language=bash]
-python3 -m json.tool data/country-schema.json > /tmp/country-schema.validated.json
-python3 -m json.tool scripts/collect_data_script_chain.json \
-  > /tmp/collect-chain.validated.json
+python3 -m json.tool data/country-schema.json
+python3 -m json.tool scripts/collect_data_script_chain.json
 python3 scripts/rebuild_database.py
 python3 -m unittest discover -s tests -v
 sqlite3 -readonly data/student_visa.sqlite \

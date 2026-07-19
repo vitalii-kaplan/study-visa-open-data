@@ -81,10 +81,11 @@ When uncertain, preserve the source category and add a note rather than forcing 
 
 ## Validation
 
-After editing the source inventory, validate it without keeping the temporary output in the repository:
+After editing the source inventory, validate it while keeping temporary output under the ignored `tmp/` directory:
 
 ```sh
-python3 -m json.tool data/country-schema.json >/tmp/country-schema.validated.json
+mkdir -p tmp
+python3 -m json.tool data/country-schema.json >tmp/country-schema.validated.json
 ```
 
 The full reproducible build and validation entry point is:

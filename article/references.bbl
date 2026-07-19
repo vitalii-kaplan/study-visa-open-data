@@ -1,0 +1,27 @@
+\begin{thebibliography}{9}
+
+\bibitem{fair}
+M. D. Wilkinson et al., ``The FAIR Guiding Principles for scientific data management and stewardship,'' \emph{Scientific Data}, vol. 3, article 160018, 2016. \url{https://doi.org/10.1038/sdata.2016.18}.
+
+\bibitem{unsd}
+United Nations Statistics Division, ``Standard country or area codes for statistical use (M49),'' methodology overview. \url{https://unstats.un.org/unsd/methodology/m49/overview/}. Accessed and downloaded 19 July 2026.
+
+\bibitem{inz}
+Immigration New Zealand, ``Offshore and overseas student visa application decision data,'' annual tables for 2022--2025. \url{https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/}.
+
+\bibitem{australia}
+Australian Government Department of Home Affairs, ``Student visa program,'' data.gov.au dataset. \url{https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e}. Snapshot resources through 30 April 2026.
+
+\bibitem{uk}
+UK Home Office, ``Immigration system statistics data tables,'' entry-clearance outcomes and education visa datasets, year ending March 2026. \url{https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables}.
+
+\bibitem{canada}
+Immigration, Refugees and Citizenship Canada, ``Statistics and open data'' and associated study-permit releases. \url{https://www.canada.ca/en/immigration-refugees-citizenship/corporate/reports-statistics/statistics-open-data.html}; Open Government dataset \url{https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee}.
+
+\bibitem{us}
+US Department of State, Bureau of Consular Affairs, ``Nonimmigrant visa statistics,'' FY1997--2024 NIV Detail Table. \url{https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics.html}.
+
+\bibitem{repository}
+V. Kaplan, ``study-visa-open-data,'' GitHub repository, 2026. \url{https://github.com/vitalii-kaplan/study-visa-open-data}. Accessed 19 July 2026.
+
+\end{thebibliography}

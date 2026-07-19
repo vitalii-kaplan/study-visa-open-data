@@ -52,7 +52,6 @@ data/student_visa.sqlite
 
 # LaTeX build by-products (keep source .tex and release .pdf files)
 *.aux
-*.bbl
 *.bcf
 *.blg
 *.fdb_latexmk

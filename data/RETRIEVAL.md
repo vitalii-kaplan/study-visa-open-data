@@ -2,6 +2,8 @@
 
 This document describes how to reproduce retrieval of the original data files from official sources.
 
+The accompanying code and documentation are maintained in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) GitHub project. Unless an absolute location is explicitly given, every file and directory path in this document is relative to the root of that project.
+
 The goal is to preserve raw source files under `data/original/` exactly as downloaded, then describe their schemas in `data/country-schema.json`. CSV extraction from those raw files is a later step handled by `scripts/extract_csv.py` for New Zealand, Australia, the United Kingdom, and most Canadian sources; `scripts/extract_us.py` handles the United States workbook, and `scripts/extract_canada_recent.py` handles the Canadian Q-2700 subset.
 
 The large `data/original/` and `data/csv/` directories, `data/student_visa_common_long.csv`, and `data/student_visa.sqlite` are not committed to the GitHub code repository. They will be distributed in a separate data artifact (DOI forthcoming). This document and the repository scripts provide the alternative path: retrieve the official sources, then recreate all derived files with `python3 scripts/rebuild_database.py`.
@@ -30,7 +32,8 @@ python3 scripts/rebuild_database.py
 Validate the source inventory after editing it:
 
 ```sh
-python3 -m json.tool data/country-schema.json >/tmp/country-schema.validated.json
+mkdir -p tmp
+python3 -m json.tool data/country-schema.json >tmp/country-schema.validated.json
 ```
 
 Regenerate the New Zealand, Australian, United Kingdom, and main Canadian source-level CSV files from downloaded raw files:
@@ -287,7 +290,8 @@ find data/original -maxdepth 2 -type f -print
 Validate the source inventory:
 
 ```sh
-python3 -m json.tool data/country-schema.json >/tmp/country-schema.validated.json
+mkdir -p tmp
+python3 -m json.tool data/country-schema.json >tmp/country-schema.validated.json
 ```
 
 Generate the New Zealand, Australian, United Kingdom, and main Canadian source-level CSVs:
