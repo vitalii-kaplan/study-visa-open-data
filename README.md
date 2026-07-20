@@ -6,7 +6,7 @@ This project brings together official statistics on student visas and study perm
 
 It focuses on the period between becoming eligible to study and beginning study: applications, government decisions, grants, refusals, issued visas or permits, and reported approval rates. The collection contains **9,510,731 aggregate measure records** in a common long-form database while preserving the meaning and limitations of each national source.
 
-[Read the project paper](article/article.pdf) · [Explore the source catalogue](data/country-schema.json) · [Review data provenance](data/RETRIEVAL.md)
+[Read the project paper](article/article.pdf) · [Published paper (DOI: 10.5281/zenodo.21453632)](https://doi.org/10.5281/zenodo.21453632) · [Explore the source catalogue](data/country-schema.json) · [Review data provenance](data/RETRIEVAL.md)
 
 ## Why this project exists
 
@@ -36,7 +36,7 @@ Coverage is not equally complete across countries. Canada combines several expli
 
 The large data files and directories listed above are not committed to the GitHub code repository. They are available from the separate data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). Alternatively, retrieve the preserved sources by following [`data/RETRIEVAL.md`](data/RETRIEVAL.md), then recreate the extracted CSV files, common long table, and SQLite database with `python3 scripts/rebuild_database.py`.
 
-The accompanying [paper](article/article.pdf) explains how the collection was assembled, how country names were reconciled, where fields are structurally absent, and which comparisons are defensible.
+The accompanying [paper](article/article.pdf), published under DOI [`10.5281/zenodo.21453632`](https://doi.org/10.5281/zenodo.21453632), explains how the collection was assembled, how country names were reconciled, where fields are structurally absent, and which comparisons are defensible.
 
 ## How to interpret the data
 

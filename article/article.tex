@@ -52,17 +52,17 @@
 \maketitle
 
 \begin{abstract}
-In this paper, we describe the collection, cleaning, and unification of public administrative data on international student visas and study permits. The resulting artifact, \file{data/student_visa.sqlite}, contains 9,510,731 aggregate measure records in a 30-field long-form schema assembled from official sources for five destinations: Australia, Canada, New Zealand, the United Kingdom, and the United States. Temporal coverage extends from Australian financial year 2005--06 to 30 April 2026, Canadian records from 2015 to 2026 with outcome subsets for 2019--April 2024, New Zealand records from 2022 to 2025, UK records from 2005 to the first quarter of 2026, and US records from fiscal year 1997 to fiscal year 2024. The database retains distinct measures for applications, decisions, grants, refusals, issuances, permit holders, and reported rates instead of treating unlike official definitions as interchangeable. Origin-country labels are unified against a preserved 248-record United Nations M49 reference using reviewed aliases and explicit statuses for direct matches, alias matches, aggregates, unknown values, and unmatched labels. The preparation process is reproducible from preserved raw sources with a single build command and separates extraction, transformation, normalization, database loading, and validation. The collected data can support analysis of the implementation and evolution of student-migration policies and administrative practices across major study destinations, as well as carefully scoped comparisons among them. Source-specific differences in legal categories, applicant populations, time bases, origin concepts, and statistical denominators remain explicit in the artifact.
+Public statistics on student visas and study permits are difficult to compare because governments publish different measures, populations, time periods, origin concepts, and denominators. We present a reproducible cross-national dataset constructed from official sources for Australia, Canada, New Zealand, the United Kingdom, and the United States. The resulting SQLite artifact contains 9,510,731 aggregate measure records in a 30-field long-form schema, with overall coverage extending from the late 1990s to 2026. Applications, decisions, grants, refusals, issuances, permit holders, and reported rates remain distinct rather than being combined as nominally equivalent outcomes. Original origin labels are preserved and normalized against the United Nations M49 reference using reviewed aliases and explicit statuses for matched countries, aggregates, unknown values, and unresolved labels. The preparation workflow separates source retrieval, extraction, transformation, normalization, database loading, and validation, and can reproduce the derived artifacts from preserved source snapshots. Provenance fields connect analytical records to their packaged source files, while automated checks evaluate mappings, applicant scope, measure consistency, and database integrity. The dataset supports public-data audits, destination-specific analysis, and carefully scoped cross-national comparisons. It contains no individual application records, and differences in legal categories, reporting practices, populations, and statistical denominators limit na\"ive comparisons of approval rates.
 \keywords{Educational migration \and Student visa \and Open data collection \and Historical data}
 \end{abstract}
 
 \section{Introduction}
 
-International education research often begins with enrolment, mobility, or institution-level data. A separate transition occurs after admission or eligibility to study and before study begins: an applicant requests a student visa, study permit, or equivalent authorization and receives a government decision. Public statistics describing this transition can inform migration research, policy evaluation, and international-education planning. However, no assumption can be made that two official tables bearing similar labels represent the same event or denominator.
+International education research often begins with enrolment, mobility, or institution-level data \cite{abbott2016,huang2023,weber2023,bartha2018}. A separate transition occurs after admission or eligibility to study and before study begins: an applicant requests a student visa, study permit, or equivalent authorization and receives a government decision \cite{chen2023,gonnot2025}. Public statistics describing this transition can inform migration research, policy evaluation, and international-education planning. However, no assumption can be made that two official tables bearing similar labels represent the same event or denominator.
 
 The underlying data are fragmented institutionally and technically. Immigration New Zealand publishes annual offshore or overseas decision tables on web pages \cite{inz}. The Australian Department of Home Affairs distributes large pivot-style workbooks covering lodgements, grants, and decision-based grant rates \cite{australia}. The UK Home Office publishes broad entry-clearance and sponsored-study workbooks that require category and applicant filtering \cite{uk}. Canadian records span committee-transparency pages and open-data files with different populations and origin concepts \cite{canada}. The US Department of State publishes visa issuances by nationality and visa class, but not nationality-level refusal denominators in the same table \cite{us}.
 
-This work treats the dataset itself as a research output. Its objective is to determine what reusable, origin-aware student-visa data can be reconstructed from these public government sources while preserving their statistical meanings. This approach is consistent with the broader principle that reusable data should be findable, accessible, interoperable, and reusable, while recognizing that openness alone does not create semantic comparability \cite{fair}.
+This work treats the dataset itself as a research output, following related efforts that document the construction, transformation, and limitations of reusable mobility and visa-policy data \cite{recchi2021,weber2023}. Its objective is to determine what reusable, origin-aware student-visa data can be reconstructed from these publicly available government sources while preserving their statistical meanings. This approach is consistent with the broader principle that reusable data should be findable, accessible, interoperable, and reusable, while recognizing that openness alone does not create semantic comparability \cite{fair}.
 
 The contributions are:
 
@@ -81,7 +81,25 @@ The code and documentation are maintained in the \emph{study-visa-open-data} Git
 
 \section{Data Practices in Related Research}
 
-% This section is intentionally left blank pending a review of data practices in related research.
+Research on international student migration makes substantial use of public and publicly documented data. The literature links visa records with institutional information, constructs cross-national mobility and policy datasets, and supplements aggregate evidence with surveys and documentary analysis. These approaches measure different stages of mobility; applications, decisions, enrolments, student stocks, costs, and intentions must therefore remain analytically distinct.
+
+\subsection{Administrative records and linked institutional data}
+
+Administrative linkage studies connect visa measures to education records. Chen et al. identify international candidates in standardized-testing data, link them to enrolment and institution records, and obtain visa-refusal measures through government information requests. They evaluate coverage against independent enrolment series and acknowledge that refusal rates reflect both policy and applicant composition \cite{chen2023}. Gonnot and Lanati combine Canadian post-secondary enrolments, programme participation records, and study-permit applications and approvals. Institutional changes and missing observations are handled explicitly, while robustness tests assess the use of approvals where enrolments are unavailable \cite{gonnot2025}. Both studies demonstrate that linkage and substitution assumptions must be documented and tested.
+
+\subsection{Constructed cross-national policy and mobility datasets}
+
+Recchi et al. construct a global visa-cost dataset through a documented hierarchy of government and consular sources. Visa categories remain separate, currencies are normalized to a common reference point, waivers are distinguished from missing values, and difficult cases undergo repeated review. Data collected from a commercial service are retained separately after their coverage and reliability prove inconsistent with official sources \cite{recchi2021}. This work provides a strong precedent for source prioritization and for avoiding unsupported integration.
+
+Bilateral mobility studies commonly join OECD or UNESCO student flows to World Bank indicators, CEPII geographic and historical variables, university rankings, trade measures, and national statistics. Abbott and Silles define flows by citizenship and exclude people already resident in the destination before applying gravity models \cite{abbott2016}. Huang et al. select the cross-section with the best common coverage and compare global and regional mobility structures \cite{huang2023}. Weber and Van Mol report coverage, mark imputed values, document extrapolated ranking measures, and distinguish between-country differences from within-country change \cite{weber2023}. Kler et al. combine mobility, economic, education, migration-stock, trade, and distance variables using models appropriate for zero bilateral flows \cite{kler2023}. Bartha and Gubik derive an Erasmus mobility rate from participant and student populations, while recognizing that joined public sources cover different country sets \cite{bartha2018}. Collectively, these studies emphasize population definitions, temporal alignment, coverage, derived denominators, structural zeros, and transparent treatment of imputation.
+
+\subsection{Surveys, reviews, and descriptive policy evidence}
+
+Surveys capture motivations that administrative counts cannot observe, but sampling determines how results may be generalized. Hercog and van de Laar combine a purposive student survey with interviews and explicitly distinguish mobility intentions from completed migration \cite{hercog2017}. Shichkin et al. combine literature searches with an expert survey, while identifying the absence of student respondents as a limitation \cite{shichkin2025}.
+
+Documentary studies broaden interpretation but often provide less reproducible selection. Kirloskar and Inamdar synthesize journal literature, policy documents, and country reports across major destinations \cite{kirloskar2021}. Choudaha combines international mobility statistics with political and economic events to produce a qualitative periodization rather than a statistical forecast \cite{choudaha2017}. Spoonley uses aggregate migration series and policy documents to interpret changes in New Zealand's immigration system; study visas form part of that policy context, but the evidence does not represent a student-visa applicant cohort \cite{spoonley2025}.
+
+The literature therefore confirms extensive use of public data in student-migration research. Its most transferable practices are to preserve source definitions, document transformations, distinguish missing and derived values, assess coverage, and validate results against alternative sources. These practices enable comparison without collapsing administrative events, enrolments, and mobility intentions into a single outcome.
 
 \section{Data Sources}
 
@@ -111,11 +129,11 @@ United States & Department of State \cite{us} & F1 and M1 issuances by nationali
 
 \subsection{Source acquisition and provenance}
 
-The separate data artifact contains the raw snapshots used for this version; its DOI will be added when available. Retrieval commands and official URLs are documented in \file{data/RETRIEVAL.md}; source metadata and schemas are recorded in \file{data/country-schema.json}. Thus, the end-to-end build reproduces derived files from preserved artifact inputs, or from sources retrieved using the documented commands. It does not claim that a future rerun of every remote URL will retrieve identical bytes, because government resources and dashboard endpoints may change.
+The separate Zenodo data artifact contains the raw snapshots used for this release \cite{dataset}. Retrieval commands and official URLs are documented in \file{data/RETRIEVAL.md}, while source metadata and schemas are recorded in \file{data/country-schema.json}. The end-to-end build therefore reproduces derived files from preserved artifact inputs or from sources obtained with the documented retrieval commands. It does not assume that future requests to every remote URL will return identical bytes, because government resources and dashboard endpoints may change.
 
 \section{Collection Methodology}
 
-Collection was designed around preserved public records and a machine-readable source inventory. Official government sources were located by publisher, statistical topic, reporting period, and availability of downloadable tables. Each retained source is identified by its official URL, publisher, access or snapshot date, local filename, format, reporting coverage, and source-specific definitions in \file{data/country-schema.json}. Retrieval commands are recorded in \file{data/RETRIEVAL.md}. Where a visa-statistics source was distributed as a static CSV, XLSX, or HTML file, it was downloaded and preserved unchanged; transformations operate on repository copies rather than altering the raw input. The present release was assembled with Python~3 from source snapshots available by 19 July 2026.
+Building on this inventory, collection was organized around preserved public records and machine-readable source descriptions. Official government sources were located by publisher, statistical topic, reporting period, and availability of downloadable tables. Each retained source is identified by its official URL, publisher, access or snapshot date, local filename, format, reporting coverage, and source-specific definitions in \file{data/country-schema.json}. Retrieval commands are recorded in \file{data/RETRIEVAL.md}. When a visa-statistics source was distributed as a static CSV, XLSX, or HTML file, it was downloaded and preserved unchanged; transformations operate on repository copies rather than altering the raw input. The present release was assembled with Python~3 from source snapshots available by 19 July 2026.
 
 \subsection{Executable build chain}
 
@@ -125,7 +143,7 @@ The supported build is launched from the repository root:
 python3 scripts/rebuild_database.py
 \end{lstlisting}
 
-The driver stops if any child process fails. Table~\ref{tab:pipeline} summarizes the seven documented stages. The same information, including initial parameters, inputs, outputs, and observed row counts, is available in JSON form at \file{scripts/collect_data_script_chain.json}.
+The driver stops if any child process fails. Table~\ref{tab:pipeline} summarizes the seven documented stages. Their parameters, inputs, outputs, and observed row counts are also recorded in JSON form at \file{scripts/collect_data_script_chain.json}.
 
 \begin{table}[htbp]
 \centering
@@ -151,11 +169,11 @@ For a faster rebuild that reuses the source-level CSV extractions, the driver ac
 
 \subsection{Format-specific extraction}
 
-HTML tables are parsed from the preserved government pages. Ordinary CSV and XLSX tables are read according to their documented sheet and field layouts. Australian workbooks require a different method: the visible sheets are pivot reports rather than flat source tables. The extractor reads the underlying XLSX pivot-cache definitions and records directly. This recovers dimensions that would be lost by copying visible cells, including lodgement channel and, for the grants workbook, the last visa held.
+Extraction methods follow the structure of each source format. HTML tables are parsed from preserved government pages, while ordinary CSV and XLSX tables are read according to their documented sheet and field layouts. Australian workbooks require a different method because the visible sheets are pivot reports rather than flat source tables. The extractor reads the underlying XLSX pivot-cache definitions and records directly, recovering dimensions that would be lost by copying visible cells, including lodgement channel and, for the grants workbook, the last visa held.
 
 The extracted Australian source tables contain 2,079,645 lodgement records, 2,274,440 grant records, and 2,046,442 grant-rate/decision records before primary-applicant filtering. The UK extraction produces 249,920 broad entry-clearance application records, 402,372 broad outcome records, 18,717 sponsored-study course application records, and 18,658 course-level grant records before strict category and applicant filtering. These source-level counts should not be interpreted as numbers of individual applicants: each record is a dimensional aggregate and later may emit one or more long-form measures.
 
-US workbook cells representing counts are normalized to displayed integer values. Missing or suppressed values remain missing rather than being converted to zero. Region totals and grand totals are excluded, as are dependent visa classes F2 and M2.
+US workbook count cells are normalized to their displayed integer values. Missing or suppressed values remain missing rather than being converted to zero. Region totals and grand totals are excluded, as are dependent visa classes F2 and M2.
 
 \section{Data Processing}
 
@@ -173,25 +191,25 @@ The strict analytical artifacts exclude explicitly identifiable dependant or mix
 
 Sources without a separable applicant-type field remain as published. Consequently, absence of an explicit dependant label is not proof that every aggregate from New Zealand or Canada represents primary applicants only.
 
-The database loader additionally requires the local student/study category for each destination. It excludes non-study UK entry-clearance categories. The Canadian Q-2700 language subset is loaded only into SQLite and retains a distinct coverage label so that it is not silently merged with all-applicant Canadian outcomes.
+The database loader additionally requires the destination-specific student or study category. It excludes non-study UK entry-clearance categories. The Canadian Q-2700 language subset is loaded only into SQLite and retains a distinct coverage label so that it is not silently merged with all-applicant Canadian outcomes.
 
 \subsection{Source differences and structural missingness}
 
-The common schema is the union of dimensions and measures exposed by five national statistical systems, not a claim that every source supplies every field. An empty dimension therefore usually means that the attribute was not published or was not applicable to that source. If a measure is unavailable, the long-form transformation emits no row for that measure rather than creating a row with a blank value or replacing it with zero. Derived values are produced only where the available components support the official definition.
+After applicant and category filtering, the common schema retains the union of dimensions and measures exposed by the five national statistical systems; it does not imply that every source supplies every field. An empty dimension therefore usually means that the attribute was not published or was not applicable to that source. If a measure is unavailable, the long-form transformation emits no row for it rather than creating a blank-valued row or replacing the value with zero. Derived values are produced only where the available components support the official definition.
 
-\textbf{New Zealand.} The annual Immigration New Zealand tables describe offshore or overseas decisions by origin and calendar year, so fields for financial year, quarter, month, education sector or level, age, gender, provider state, and lodgement channel remain empty. The 2023--2025 tables report completed-application volume, approvals, declines, approval rate, and decline rate, but the 2022 table reports only approvals, declines, and decline rate. A 2022 completed-application total could be calculated as approvals plus declines, and an approval rate could then be calculated from that total, only if those two outcomes exhaust the source population. Because the source does not establish that withdrawals or other outcomes are absent, the present build does not make that assumption: 2022 application-volume and approval-rate rows remain unavailable.
+\textbf{New Zealand.} The annual Immigration New Zealand tables describe offshore or overseas decisions by origin and calendar year, so fields for financial year, quarter, month, education sector or level, age, gender, provider state, and lodgement channel remain empty. The 2023--2025 tables report completed applications, approvals, declines, approval rate, and decline rate, but the 2022 table reports only approvals, declines, and decline rate. A 2022 completed-application total and approval rate could be calculated only if approvals and declines exhaust the source population. Because the source does not establish that withdrawals or other outcomes are absent, the present build does not make that assumption: application-volume and approval-rate rows for 2022 remain unavailable.
 
 \textbf{Australia.} The Department of Home Affairs publishes separate monthly pivot workbooks for lodgements, grants, and decision-based grant rates. Their rich dimensions populate financial year, quarter, month, client location, lodgement channel, sector, applicant type, provider state, gender, age, and citizenship, but they do not provide a separate education-level field; the grants workbook alone exposes last visa held. Lodgements, grants, and decisions are different events and are therefore not used to fill one another's missing measures. In the decision workbook, the source provides grants, refusals, and total decisions; validation confirms that grants plus refusals equals that total, and the pipeline calculates grant rate as grants divided by grants plus refusals. The dedicated grants workbook and the grant component of the decision workbook remain distinct because their dimensional structures differ.
 
 \textbf{United Kingdom.} UK data are quarterly and nationality-based. General entry-clearance files provide applications and decision outcomes, while sponsored-study files provide course-level applications and grants only from 2018 onward. Consequently, education level is populated for the course-level series but empty for general entry-clearance records, and fields such as applicant location, lodgement channel, age, gender, and provider state are not available. Applications and outcomes published in the same quarter do not necessarily describe the same application cohort, so the pipeline does not derive a quarterly approval rate by dividing grants by applications. Refused, withdrawn, and lapsed decisions remain separate published outcome measures.
 
-\textbf{Canada.} Canadian coverage is assembled from several sources with different populations and origin concepts. Older outcome tables use country of residence and may report approvals, refusals, withdrawals, processed totals, and approval rates; recent snapshots may cover only leading countries, aggregates, or French-speaking/bilingual applicants. Separate Open Canada files report permit holders or permits effective by citizenship rather than applications and decisions. These differences leave many dimensions and measures empty for particular Canadian rows and prevent one source from completing another. Source-reported approval rates are retained with their stated denominator. In the Q-2700 French-speaking/bilingual subset, processed applications can be derived as approvals plus refusals because those components define the reported decision total, but that subset remains explicitly labelled and SQLite-only rather than being treated as an all-applicant national series.
+\textbf{Canada.} Canadian coverage is assembled from several sources with different populations and origin concepts. Older outcome tables use country of residence and may report approvals, refusals, withdrawals, processed totals, and approval rates; recent snapshots may cover only leading countries, aggregates, or French-speaking/bilingual applicants. Separate Government of Canada Open Data files report permit holders or permits effective by citizenship rather than applications and decisions. These differences leave many dimensions and measures empty for particular Canadian rows and prevent one source from completing another. Source-reported approval rates are retained with their stated denominator. In the Q-2700 French-speaking/bilingual subset, processed applications can be derived as approvals plus refusals because those components define the reported decision total, but that subset remains explicitly labelled and SQLite-only rather than being treated as an all-applicant national series.
 
 \textbf{United States.} The Department of State workbooks provide annual F1 and M1 visa issuances by nationality and fiscal year. They do not provide nationality-level applications, refusals, withdrawals, decisions, or approval rates in the same source, nor do they expose education sector, level, applicant location, age, gender, provider state, or lodgement channel. Those fields therefore remain empty or have no corresponding measure rows. An approval rate cannot be responsibly derived from issuances alone because its application or decision denominator is unavailable.
 
 \subsection{Country-name reconciliation}
 
-Origin labels are normalized against the United Nations Statistics Division M49 methodology table \cite{unsd}. The official source was downloaded on 19 July 2026 as \file{data/UNSD — Methodology.csv} from the UNSD M49 methodology page \cite{unsd} and is used directly by the normalization scripts. The table contains 248 unique countries or areas and records the canonical name, three-digit M49 code, region, subregion, intermediate region, and ISO alpha-2 and alpha-3 codes.
+After source-specific processing, origin labels are normalized against the United Nations Statistics Division M49 methodology table. The official source was downloaded on 19 July 2026 as \file{data/UNSD — Methodology.csv} from the UNSD M49 methodology page and is used directly by the normalization scripts \cite{unsd}. The table contains 248 unique countries or areas and records the canonical name, three-digit M49 code, region, subregion, intermediate region, and ISO alpha-2 and alpha-3 codes.
 
 Normalization first applies destination-specific or global reviewed rules from \file{data/country_aliases.csv}, then exact and normalized-form matching against the M49 canonical names. Each source label receives one of five statuses:
 
@@ -225,11 +243,11 @@ Total & 9,510,731 & 100.000 & --- \\
 \end{tabularx}
 \end{table}
 
-Only \texttt{matched} and \texttt{alias\_matched} rows receive \texttt{un\_m49\_country}. Territories represented separately by UNSD are not reassigned to an administering state. The 266,102 unmatched rows collapse to 59 destination/source/label groups and are exported with destination, original label, source, row count, and period range to \file{log/unmatched_origin_labels.csv}.
+Only \texttt{matched} and \texttt{alias\_matched} rows receive \texttt{un\_m49\_country}. Territories represented separately by UNSD are not reassigned to an administering state. The 266,102 unmatched rows represent 59 destination/source/label groups and are exported with destination, original label, source, row count, and period range to \file{log/unmatched_origin_labels.csv}.
 
 \subsection{Long-form transformation}
 
-The original government files organize their statistics in different ways. Some place several measures in one record. For example, one Australian decision record can contain grants, refusals, total decisions, and grant rate. The transformation converts that source record into four long-form rows: one row for each measure. Every emitted row retains the same source dimensions, such as origin country, period, education sector, applicant location, gender, and age group. This structure allows different national measures to use one common schema without implying that measures with similar names have identical definitions.
+Following normalization, source records are transformed into the common long form. Government files organize their statistics in different ways, and some place several measures in one record. For example, one Australian decision record can contain grants, refusals, total decisions, and grant rate. The transformation converts that source record into four rows, one for each measure. Every emitted row retains the same source dimensions, such as origin country, period, education sector, applicant location, gender, and age group. This structure allows different national measures to use one common schema without implying that similarly named measures have identical definitions.
 
 Rows must nevertheless be aggregated within the correct source and coverage. Australian grants, for example, appear in both the dedicated grants workbook and the decision/grant-rate workbook. The two representations have different dimensional structures and are retained for different analytical purposes. Summing them together would count the same type of event twice. Queries must therefore select the intended source, measure, period, applicant scope, and relevant dimensions before calculating totals or rates.
 
@@ -237,11 +255,11 @@ Rows must nevertheless be aggregated within the correct source and coverage. Aus
 
 \subsection{Artifacts}
 
-The release is organized in layers (Table~\ref{tab:artifacts}). Raw files and extracted source tables remain distinguishable from harmonized records.
+The resulting release is organized in layers (Table~\ref{tab:artifacts}), keeping raw files and extracted source tables distinguishable from harmonized records.
 
 \begin{table}[htbp]
 \centering
-\caption{Principal repository artifacts.}
+\caption{Principal release and build artifacts.}
 \label{tab:artifacts}
 \small
 \begin{tabularx}{\textwidth}{@{}L{4.7cm}rY@{}}
@@ -252,7 +270,7 @@ Artifact & Records & Scope \\
 \file{data/csv/<country>/} & source-specific & Extracted source-level tables, including broad categories retained for provenance. \\
 \file{data/student_visa_common_long.csv} & 9,707,903 & Thirty-field common long table for five destinations; retains distinguishable source categories and excludes identifiable dependant cohorts. \\
 \file{data/student_visa.sqlite} & 9,510,731 & Strict student/study query database for five destinations; includes the labelled Canadian Q-2700 SQLite-only subset. \\
-\file{log/unmatched_origin_labels.csv} & 59 groups & Audit of source-label/source combinations not assigned an M49 country. \\
+\file{log/unmatched_origin_labels.csv} & 59 groups & Audit of source-label and source combinations not assigned an M49 country. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -268,7 +286,7 @@ Table~\ref{tab:coverage} reports database counts obtained from the rebuilt SQLit
 \small
 \begin{tabularx}{\textwidth}{@{}L{1.8cm}r L{1.5cm}L{2.4cm}Y@{}}
 \toprule
-Destination & Records & Origins & Period & Included measures \\
+Destination & Records & Origins (raw/M49) & Period & Included measures \\
 \midrule
 Australia & 9,319,202 & 236/224 & FY2005--06 to 30 Apr 2026 & Lodgements, grants, decisions, refusals, and grant rates \\
 Canada & 54,729 & 283/235 & 2015--2026; outcome subsets 2019--Apr 2024 & Applications, outcomes, issuances, and permit-holder/effective counts \\
@@ -349,9 +367,11 @@ Count values in the Australian source tables and the final database must be non-
 
 The common CSV and SQLite are scanned for Australian \texttt{Secondary}, UK \texttt{Dependant} and \texttt{All}, generic \texttt{dependent}, and US F2/M2 records. The validated count of such explicitly excluded records in SQLite is zero. The rebuilt SQLite table contains 9,510,731 rows after strict filtering and insertion of the explicitly labelled Canadian SQLite-only subset.
 
-Four unit tests cover reviewed aliases, non-country handling, territory preservation, and equality between generated and source M49 names/counts. The full build and all validation checks completed successfully for the 19 July 2026 snapshot.
+Four unit tests cover reviewed aliases, non-country handling, territory preservation, and equality between generated and source M49 names and counts. The full build and all validation checks completed successfully for the 19 July 2026 snapshot.
 
 \section{Usage Notes}
+
+The heterogeneity preserved by the preceding workflow imposes several constraints on responsible analysis.
 
 \subsection{No universal approval-rate denominator}
 
@@ -383,9 +403,9 @@ Appropriate uses include audits of public-data availability, destination-specifi
 
 \section{Data and code availability}
 
-The primary release file is \file{data/student_visa.sqlite}. The database, common CSV, raw sources, source-level CSVs, and validation audit are distributed as a separate data artifact (DOI forthcoming), rather than committed to the GitHub code repository \cite{repository}. The code repository contains the scripts, machine-readable source inventory at \file{data/country-schema.json}, retrieval documentation at \file{data/RETRIEVAL.md}, and executable workflow description at \file{scripts/collect_data_script_chain.json}. The data files can be obtained from the artifact or recreated with the documented retrieval and build scripts.
+The primary query-ready release file is \file{data/student_visa.sqlite}. The database, common CSV, raw sources, source-level CSVs, and validation audit are distributed in the Zenodo data artifact \cite{dataset}, rather than committed to the GitHub code repository. The code repository contains the scripts, machine-readable source inventory at \file{data/country-schema.json}, retrieval documentation at \file{data/RETRIEVAL.md}, and executable workflow description at \file{scripts/collect_data_script_chain.json} \cite{repository}. The data files can be obtained from the artifact or recreated with the documented retrieval and build scripts.
 
-At the time of this draft, no archival DOI or dataset version identifier has been assigned. These items should be added before submission or public release. Licences and attribution requirements of each underlying government source remain applicable independently of the project-wide reuse licence assigned to the repository or any licence later assigned to the derived database.
+The cited Zenodo record identifies this release as version 1.0 under DOI \url{https://doi.org/10.5281/zenodo.21446641}. The code repository is distributed under the MIT License, while the data artifact is licensed under Creative Commons Attribution 4.0. Licences and attribution requirements of the underlying government sources remain independently applicable.
 
 \section{Reproducibility checklist}
 

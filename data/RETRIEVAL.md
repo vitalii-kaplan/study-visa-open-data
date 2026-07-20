@@ -4,6 +4,8 @@ This document describes how to reproduce retrieval of the original data files fr
 
 The accompanying code and documentation are maintained in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) GitHub project. Unless an absolute location is explicitly given, every file and directory path in this document is relative to the root of that project.
 
+The methods and scope of the collection are described in the accompanying data paper, *A Reproducible Cross-National Dataset of Public Student Visa and Study Permit Statistics*, published under DOI [`10.5281/zenodo.21453632`](https://doi.org/10.5281/zenodo.21453632).
+
 The goal is to preserve raw source files under `data/original/` exactly as downloaded, then describe their schemas in `data/country-schema.json`. CSV extraction from those raw files is a later step handled by `scripts/extract_csv.py` for New Zealand, Australia, the United Kingdom, and most Canadian sources; `scripts/extract_us.py` handles the United States workbook, and `scripts/extract_canada_recent.py` handles the Canadian Q-2700 subset.
 
 The large `data/original/` and `data/csv/` directories, `data/student_visa_common_long.csv`, and `data/student_visa.sqlite` are not committed to the GitHub code repository. They are distributed in a separate data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). This document and the repository scripts provide the alternative path: retrieve the official sources, then recreate all derived files with `python3 scripts/rebuild_database.py`.

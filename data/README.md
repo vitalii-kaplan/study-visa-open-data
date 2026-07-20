@@ -4,7 +4,9 @@ This data artifact contains a reproducible cross-national collection of public s
 
 Each record represents an aggregate published measure, not an individual applicant or visa case. Measures with different meanings must not be treated as interchangeable. Consult `country-schema.json` and `RETRIEVAL.md` before making comparisons across sources or destinations.
 
-The large data files are distributed separately from the GitHub code repository as a data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). They can also be recreated from the documented sources using the scripts in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) project. All paths mentioned here are relative to that project’s `data/` directory.
+The large data files are distributed separately from the GitHub code repository as a data artifact under DOI [`10.5281/zenodo.21446641`](https://doi.org/10.5281/zenodo.21446641). They can also be recreated from the documented sources using the scripts in the [`vitalii-kaplan/study-visa-open-data`](https://github.com/vitalii-kaplan/study-visa-open-data) project. All relative paths are interpreted from that project’s root directory; the entries in the table below are top-level entries within `data/`.
+
+The accompanying data paper, *A Reproducible Cross-National Dataset of Public Student Visa and Study Permit Statistics*, is published under DOI [`10.5281/zenodo.21453632`](https://doi.org/10.5281/zenodo.21453632).
 
 ## Top-level contents
 
@@ -13,6 +15,7 @@ The large data files are distributed separately from the GitHub code repository 
 | `README.md` | This overview of the data artifact and its top-level contents. |
 | `RETRIEVAL.md` | Retrieval instructions, official source URLs, provenance notes, schema cautions, and the reproducible build sequence. |
 | `UNSD — Methodology.csv` | Preserved United Nations Statistics Division M49 reference used to normalize origin-country and area names. |
+| `articles/` | Working collection of related-research articles used to develop the literature discussion. Article PDFs, extracted HTML, TEI, and metadata intermediates are excluded from Git; only its curated registry is tracked. |
 | `country-schema.json` | Machine-readable source inventory and data dictionary, including coverage, fields, source locations, definitions, and comparability limitations. |
 | `country_aliases.csv` | Reviewed mappings from source-specific origin labels to M49 names, together with explicit aggregate, unknown, and unmatched classifications. |
 | `csv/` | Source-level CSV extractions generated from the preserved official sources. These retain source-specific schemas and are inputs to later transformation stages. |

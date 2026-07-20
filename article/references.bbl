@@ -1,27 +1,69 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 
-\bibitem{fair}
-M. D. Wilkinson et al., ``The FAIR Guiding Principles for scientific data management and stewardship,'' \emph{Scientific Data}, vol. 3, article 160018, 2016. \url{https://doi.org/10.1038/sdata.2016.18}.
+\bibitem{abbott2016}
+A. Abbott and M. Silles, ``Determinants of international student migration,'' \emph{The World Economy}, vol. 39, no. 5, pp. 621--635, 2016. \url{https://doi.org/10.1111/twec.12319}.
+
+\bibitem{australia}
+Australian Government Department of Home Affairs, ``Student visa program,'' data.gov.au dataset. \url{https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e}. Snapshot resources through 30 April 2026; accessed 19 July 2026.
+
+\bibitem{bartha2018}
+Z. Bartha and A. S. Gubik, ``Institutional determinants of higher education students' international mobility within the Erasmus Programme countries,'' \emph{Theory, Methodology, Practice}, vol. 14, no. 2, pp. 3--13, 2018. \url{https://doi.org/10.18096/tmp.2018.02.01}.
+
+\bibitem{chen2023}
+M. Chen, J. Howell, and J. Smith, ``Best and brightest? The impact of student visa restrictiveness on who attends college in the US,'' \emph{Labour Economics}, vol. 84, article 102385, 2023. \url{https://doi.org/10.1016/j.labeco.2023.102385}.
+
+\bibitem{choudaha2017}
+R. Choudaha, ``Three waves of international student mobility (1999--2020),'' \emph{Studies in Higher Education}, vol. 42, no. 5, pp. 825--832, 2017. \url{https://doi.org/10.1080/03075079.2017.1293872}.
+
+\bibitem{gonnot2025}
+J. Gonnot and M. Lanati, ``Visa policy and international student migration: evidence from Canada,'' \emph{Journal of Economic Geography}, vol. 25, no. 2, pp. 255--291, 2025. \url{https://doi.org/10.1093/jeg/lbae034}.
+
+\bibitem{hercog2017}
+M. Hercog and M. van de Laar, ``Motivations and constraints of moving abroad for Indian students,'' \emph{Journal of International Migration and Integration}, vol. 18, no. 3, pp. 749--770, 2017. \url{https://doi.org/10.1007/s12134-016-0499-4}.
+
+\bibitem{huang2023}
+Y.-H. I. Huang, C.-T. Wu, C.-Y. Guo, and J.-L. Kang, ``Diversified patterns and future prospects of international student mobility: a multi-level analysis from global and Asian perspectives,'' \emph{Higher Education Research \& Development}, vol. 42, no. 7, pp. 1654--1669, 2023. \url{https://doi.org/10.1080/07294360.2023.2174083}.
+
+\bibitem{inz}
+Immigration New Zealand, ``Overseas student visa application decision data,'' annual tables for 2022--2025. \url{https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/}. Accessed 19 July 2026.
+
+\bibitem{canada}
+Immigration, Refugees and Citizenship Canada, ``Statistics and Open Data'' and associated study-permit releases. \url{https://www.canada.ca/en/immigration-refugees-citizenship/corporate/reports-statistics/statistics-open-data.html}; Open Government dataset \url{https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee}. Accessed 19 July 2026.
+
+\bibitem{dataset}
+V. Kaplan, ``Country-to-Visa: A cross-national dataset of public student visa and study permit statistics,'' version 1.0, Zenodo, 2026. \url{https://doi.org/10.5281/zenodo.21446641}.
+
+\bibitem{repository}
+V. Kaplan, ``study-visa-open-data,'' GitHub repository, 2026. \url{https://github.com/vitalii-kaplan/study-visa-open-data}. Accessed 19 July 2026.
+
+\bibitem{kirloskar2021}
+P. Kirloskar and N. Inamdar, ``Shifting international student mobility directions and factors influencing students' higher education destination choices,'' \emph{Journal of Higher Education Policy and Leadership Studies}, vol. 2, no. 3, pp. 160--178, 2021. \url{https://doi.org/10.52547/johepal.2.3.160}.
+
+\bibitem{kler2023}
+R. Kler, S. Goel, I. S. Ray, A. B. B. A. Hamid, and N. I. B. Ya'akub, ``Inimitable elements impacting student mobility among developing countries and developed countries,'' \emph{International Journal of Professional Business Review}, vol. 8, no. 6, article e02223, 2023. \url{https://doi.org/10.26668/businessreview/2023.v8i6.2223}.
+
+\bibitem{recchi2021}
+E. Recchi, E. Deutschmann, L. Gabrielli, and N. Kholmatova, ``The global visa cost divide: How and why the price for travel permits varies worldwide,'' \emph{Political Geography}, vol. 86, article 102350, 2021. \url{https://doi.org/10.1016/j.polgeo.2021.102350}.
+
+\bibitem{shichkin2025}
+I. Shichkin, L. Mokrova, N. Sokolitsyna, I. Sobolev, N. Gubanova, Z. Khachak, and E. Akhmetshin, ``Trends in modern education: The impact of various types of factors on student mobility and migration,'' \emph{Revista on line de Pol\'itica e Gest\~ao Educacional}, vol. 29, no. 00, article e025110, 2025. \url{https://doi.org/10.22633/rpge.v29i00.20794}.
+
+\bibitem{spoonley2025}
+P. Spoonley, ``Immigration challenges and changes in New Zealand: Contemporary policy issues,'' \emph{New Zealand Journal of Employment Relations}, vol. 49, no. 1, pp. 1--15, 2025. \url{https://doi.org/10.24135/nzjer.v49i1.187}.
+
+\bibitem{uk}
+UK Home Office, ``Immigration system statistics data tables,'' entry-clearance outcomes and education visa datasets, year ending March 2026. \url{https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables}. Accessed 19 July 2026.
 
 \bibitem{unsd}
 United Nations Statistics Division, ``Standard country or area codes for statistical use (M49),'' methodology overview. \url{https://unstats.un.org/unsd/methodology/m49/overview/}. Accessed and downloaded 19 July 2026.
 
-\bibitem{inz}
-Immigration New Zealand, ``Offshore and overseas student visa application decision data,'' annual tables for 2022--2025. \url{https://www.immigration.govt.nz/study/for-education-providers/data-and-processing-times-for-international-student-visas/offshore-student-visa-application-decision-data/}.
-
-\bibitem{australia}
-Australian Government Department of Home Affairs, ``Student visa program,'' data.gov.au dataset. \url{https://data.gov.au/data/dataset/324aa4f7-46bb-4d56-bc2d-772333a2317e}. Snapshot resources through 30 April 2026.
-
-\bibitem{uk}
-UK Home Office, ``Immigration system statistics data tables,'' entry-clearance outcomes and education visa datasets, year ending March 2026. \url{https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables}.
-
-\bibitem{canada}
-Immigration, Refugees and Citizenship Canada, ``Statistics and open data'' and associated study-permit releases. \url{https://www.canada.ca/en/immigration-refugees-citizenship/corporate/reports-statistics/statistics-open-data.html}; Open Government dataset \url{https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee}.
-
 \bibitem{us}
-US Department of State, Bureau of Consular Affairs, ``Nonimmigrant visa statistics,'' FY1997--2024 NIV Detail Table. \url{https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics.html}.
+US Department of State, Bureau of Consular Affairs, ``Nonimmigrant visa statistics,'' FY1997--2024 NIV Detail Table. \url{https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics.html}. Accessed 19 July 2026.
 
-\bibitem{repository}
-V. Kaplan, ``study-visa-open-data,'' GitHub repository, 2026. \url{https://github.com/vitalii-kaplan/study-visa-open-data}. Accessed 19 July 2026.
+\bibitem{weber2023}
+T. Weber and C. Van Mol, ``The student migration transition: an empirical investigation into the nexus between development and international student migration,'' \emph{Comparative Migration Studies}, vol. 11, no. 1, article 5, 2023. \url{https://doi.org/10.1186/s40878-023-00329-0}.
+
+\bibitem{fair}
+M. D. Wilkinson et al., ``The FAIR Guiding Principles for scientific data management and stewardship,'' \emph{Scientific Data}, vol. 3, article 160018, 2016. \url{https://doi.org/10.1038/sdata.2016.18}.
 
 \end{thebibliography}

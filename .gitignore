@@ -36,8 +36,10 @@ dist/
 # Rebuildable processing intermediates and audit logs
 tmp/
 log/
+data/articles/*
+!data/articles/registry.json
 
-# Data release files are published as a separate artifact (DOI forthcoming).
+# Data release files are published as a separate artifact.
 # They can also be recreated with the retrieval and rebuild scripts.
 data/original/
 data/csv/
